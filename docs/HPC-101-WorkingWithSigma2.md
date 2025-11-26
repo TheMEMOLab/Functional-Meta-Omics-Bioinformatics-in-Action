@@ -1,8 +1,9 @@
 ---
 layout: default
 title: HPC 101 – Working with Sigma2
-next: docs/metaG.html
+next: /docs/metaG.html
 ---
+{% include navbar.html %}
 
 # Working with SAGA Cluster Sigma2-NIRS
 

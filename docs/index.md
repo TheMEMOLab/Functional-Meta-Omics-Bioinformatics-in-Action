@@ -2,8 +2,10 @@
 ---
 layout: default
 title: Functional Meta-Omics Workshop
-next: docs/HPC-101-WorkingWithSigma2.html   # first navigation target
+next: /docs/HPC-101-WorkingWithSigma2.html   # first navigation target
 ---
+
+{% include navbar.html %}
 
 # 👋 Welcome to the Functional Meta-Omics Bioinformatics Workshop
 
