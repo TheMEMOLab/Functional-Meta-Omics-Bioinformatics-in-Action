@@ -1,0 +1,26 @@
+<nav style="display:flex; justify-content:center; align-items:center; gap:30px; margin:20px 0;">
+  {%- if page.prev -%}
+    <a href="{{ page.prev | relative_url }}" title="Previous">
+      {% octicon arrow-left height:32 class:"nav-icon" aria-label:"previous page" %}
+    </a>
+  {%- else -%}
+    <span style="opacity:0.3;">
+      {% octicon arrow-left height:32 class:"nav-icon" aria-label:"no previous page" %}
+    </span>
+  {%- endif -%}
+
+  <a href="{{ '/' | relative_url }}" title="Home">
+    {% octicon home height:32 class:"nav-icon" aria-label:"home" %}
+  </a>
+
+  {%- if page.next -%}
+    <a href="{{ page.next | relative_url }}" title="Next">
+      {% octicon arrow-right height:32 class:"nav-icon" aria-label:"next page" %}
+    </a>
+  {%- else -%}
+    <span style="opacity:0.3;">
+      {% octicon arrow-right height:32 class:"nav-icon" aria-label:"no next page" %}
+    </span>
+  {%- endif -%}
+</nav>
+<hr>

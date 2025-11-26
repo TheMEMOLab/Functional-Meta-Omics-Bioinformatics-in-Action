@@ -1,3 +1,9 @@
+---
+layout: default
+title: HPC 101 – Working with Sigma2
+next: docs/metaG.html
+---
+
 # Working with SAGA Cluster Sigma2-NIRS
 
 This workshop was doing by help of [Sigma2-NIRS](https://documentation.sigma2.no/index.html).
@@ -135,7 +141,7 @@ freecores|sort -V
 ### Where can I storage large files? 
 
 >[!Important]
-> During the BIO326 Course all data, scripts, results and so must be written in
+> During this workshop all data, scripts, results and so must be written in
 ```
 /cluster/projects/nn9987k
 ```
@@ -229,16 +235,16 @@ squeue -u $USER
 
 **Solution: we can use BLAST tool to align the sequence to all the predicted proteins in the Bacteroides51 genome and look for an ortholog of the a-amylase.**
 
-Let's enter to that directory and then copy some fasta files from the ```/cluster/projects/nn9987k/BIO326-2025/```, this is a share directory we (teachers) will use to upload data for you. In this class we are using the files from ```/cluster/projects/nn9987k/BIO326-2025/HPC101/BLASTExample``` path.
+Let's enter to that directory and then copy some fasta files from the ```/cluster/projects/nn9987k/UiO_BW_2025```, this is a share directory we (teachers) will use to upload data for you. In this class we are using the files from ```/cluster/projects/nn9987k/UiO_BW_2025/HPC101/BLASTExample``` path.
 
 First take a look of the data
 
 ```bash
-tree /cluster/projects/nn9987k/BIO326-2025/HPC101/
+tree /cluster/projects/nn9987k/UiO_BW_2025/HPC101/
 ```
 
 ```
-/cluster/projects/nn9987k/BIO326-2025/HPC101/
+tree /cluster/projects/nn9987k/UiO_BW_2025/HPC101/
 └── BLASTExample
     ├── amylase.Bgramini.fasta
     └── Bacteroides51.faa
@@ -251,7 +257,7 @@ As you can see there are multiple files here. Let's copy the two fasta files **.
 
 
 ```
-cp /cluster/projects/nn9987k/BIO326-2025/HPC101/BLASTExample/*.* $LOCALSCRATCH
+cp tree /cluster/projects/nn9987k/UiO_BW_2025/HPC101/BLASTExample/*.* $LOCALSCRATCH
 cd $LOCALSCRATCH/
 ls
 ```
@@ -298,7 +304,7 @@ It seems blastp is not installed as a default software in SAGA.
 
 Conda is an open source package management system and environment management system that runs on Windows, macOS, and Linux. Conda quickly installs, runs and updates packages and their dependencies. Conda easily creates, saves, loads and switches between environments on your local computer. It was created for Python programs, but it can package and distribute software for any language. You can read more about conda [here](https://docs.conda.io/en/latest/).
 
-For **BIO-326** we will use different Conda environments previously installed in SAGA.
+For **OBW** we will use different Conda environments previously installed in SAGA.
 
 1. Activate the Module Anaconda to load all the conda basics
 
@@ -499,7 +505,7 @@ date
 ```
 
 >[!Note]
->A copy of this script is storage in ```/cluster/projects/nn9987k/BIO326-2025/HPC101/SLURM/myfirstsbatch.SLURM.sh```
+>A copy of this script is storage in ```tree /cluster/projects/nn9987k/UiO_BW_2025/HPC101//SLURM/myfirstsbatch.SLURM.sh```
 
 We can then submit the job by:
 
@@ -511,7 +517,7 @@ cd /cluster/projects/nn9987k/$USER
 2) Use the command sbatch to launch the job:
 
 ```bash
-sbatch /cluster/projects/nn9987k/BIO326-2025/HPC101/SLURM/myfirstsbatch.SLURM.sh
+sbatch tree /cluster/projects/nn9987k/UiO_BW_2025/HPC101/SLURM/myfirstsbatch.SLURM.sh
 ```
 ## Monitoring the jobs by squeue
 
@@ -598,10 +604,10 @@ I slept for 10 seconds
 
 ### Debunging errors during sbatch execution:
 
-Let's run the following script ```/cluster/projects/nn9987k/BIO326-2025/HPC101/SLURM/mysecondbath.SLURM.sh ``` that launches a job to sleep for 20 seconds and then create a text file ```20.txt```
+Let's run the following script ```tree /cluster/projects/nn9987k/UiO_BW_2025/HPC101/SLURM/mysecondbath.SLURM.sh ``` that launches a job to sleep for 20 seconds and then create a text file ```20.txt```
 
 ```bash
-sbatch /cluster/projects/nn9987k/BIO326-2025/HPC101/SLURM/mysecondbath.SLURM.sh
+sbatch tree /cluster/projects/nn9987k/UiO_BW_2025/HPC101/SLURM/mysecondbath.SLURM.sh
 ```
 Let's list the results:
 
@@ -632,7 +638,7 @@ more slurm-MySbatchScript_14027942.err
 It looks like the error is in line 32, let's take a look of the slurm script:
 
 ```bash
-less +32 -N /cluster/projects/nn9987k/BIO326-2025/HPC101/SLURM/mysecondbath.SLURM.sh
+less +32 -N tree /cluster/projects/nn9987k/UiO_BW_2025/HPC101/SLURM/mysecondbath.SLURM.sh
 ```
 
 ```console
@@ -642,7 +648,7 @@ less +32 -N /cluster/projects/nn9987k/BIO326-2025/HPC101/SLURM/mysecondbath.SLUR
 Changing the error in that line will correct the code. Let's make a copy and then change that line. 
 
 ```bash
-cp /cluster/projects/nn9987k/BIO326-2025/HPC101/SLURM/mysecondbath.SLURM.sh /cluster/projects/nn9987k/$USER
+cp tree /cluster/projects/nn9987k/UiO_BW_2025/HPC101/SLURM/mysecondbath.SLURM.sh /cluster/projects/nn9987k/$USER
 sed -i.back '32s/ech/echo/' mysecondbath.SLURM.sh
 
 ```
@@ -738,7 +744,7 @@ date
 
 ## Copying data to local node for faster computation
 
-cp /cluster/projects/nn9987k/BIO326-2025/HPC101/BLASTExample/*.* $LOCALSCRATCH
+cp tree /cluster/projects/nn9987k/UiO_BW_2025/HPC101/BLASTExample/*.* $LOCALSCRATCH
 cd $LOCALSCRATCH/
 ls
 
@@ -777,7 +783,7 @@ date
 We can submit the script by:
 
 ```bash
-sbatch /cluster/projects/nn9987k/BIO326-2025/HPC101/SLURM/blast.SLRUM.sh
+sbatch tree /cluster/projects/nn9987k/UiO_BW_2025/HPC101/SLURM/blast.SLRUM.sh
 ```
 
 >[!Note]
