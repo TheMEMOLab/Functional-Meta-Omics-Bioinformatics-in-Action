@@ -5,7 +5,7 @@ next: MetaG.html
 ---
 {% include navbar.html %}
 
-<link rel="stylesheet" href="/assets/css/callouts.css">
+<link rel="stylesheet" href="assets/css/callouts.css">
 
 # Working with SAGA Cluster Sigma2-NIRS
 
