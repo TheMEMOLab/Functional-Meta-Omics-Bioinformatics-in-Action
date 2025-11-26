@@ -5,6 +5,8 @@ next: MetaG.html
 ---
 {% include navbar.html %}
 
+<link rel="stylesheet" href="/assets/css/callouts.css">
+
 # Working with SAGA Cluster Sigma2-NIRS
 
 This workshop was doing by help of [Sigma2-NIRS](https://documentation.sigma2.no/index.html).
