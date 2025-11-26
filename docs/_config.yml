@@ -3,3 +3,10 @@ description: "This hands-on workshop introduces participants to the bioinformati
 theme: jekyll-theme-cayman
 plugins:
   - jekyll-octicons
+defaults:
+  - scope:
+      path: ""
+    values:
+      css: assets/css/callouts.css
+
+

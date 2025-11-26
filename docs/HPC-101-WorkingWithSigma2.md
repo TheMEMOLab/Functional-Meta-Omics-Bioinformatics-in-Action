@@ -20,8 +20,10 @@ For login open a Command-line interface (CLI) or Terminal  and type something li
 ```bash
 ssh auve@saga.sigma2.no
 ```
-> [!Important]
-> Rember to change your user name
+<div class="callout callout-important">
+  <div class="callout-title">⚠️ Important</div>
+  Remember to change your user name.
+</div>
 
 This will ask for your password, the one you got from Sigma2 by text. Type it.  
 *Even you don't see anything the password is typed.*

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Another section
+title: Metagenomics-pipeline
 prev: HPC-101-WorkingWithSigma2.html
 ---
 {% include navbar.html %}
