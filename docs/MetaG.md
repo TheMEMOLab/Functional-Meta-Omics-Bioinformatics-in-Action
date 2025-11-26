@@ -3,6 +3,7 @@ layout: default
 title: Another section
 prev: HPC-101-WorkingWithSigma2.html
 ---
+{% include navbar.html %}
 
 # Case-Study: Working with the BIO326 metagenomic samples.
 

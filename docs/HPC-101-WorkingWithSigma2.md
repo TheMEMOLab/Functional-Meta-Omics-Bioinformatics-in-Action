@@ -1,7 +1,7 @@
 ---
 layout: default
 title: HPC 101 – Working with Sigma2
-next: metaG.html
+next: MetaG.html
 ---
 {% include navbar.html %}
 
