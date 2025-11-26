@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Another section
-prev: docs/HPC-101-WorkingWithSigma2.html
+prev: HPC-101-WorkingWithSigma2.html
 ---
 
 # Case-Study: Working with the BIO326 metagenomic samples.
