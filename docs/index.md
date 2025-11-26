@@ -1,4 +1,3 @@
-
 ---
 layout: default
 title: Functional Meta-Omics Workshop
