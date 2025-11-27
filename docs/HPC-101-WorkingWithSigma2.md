@@ -99,9 +99,12 @@ Main components
 
 The HPC clusters are resources that are shared between many users, and to ensure fair use everyone must do their computations by submitting jobs through a queue system (batch system) that will execute the applications on the available resources. In our case Slurm is used as workload manager and job scheduler.
 
-When you log in to a cluster, you are logged in to a login node shared by all users. The login nodes are meant for logging in, copying files, editing, compiling, running short tests (no more than a couple of minutes), submitting jobs, checking job status, etc. If you are unsure about the basic interaction with Unix-like systems, here is a good resource to start with. Jobs started via Slurm run on the compute nodes.
+When you log in to a cluster, you are logged in to a login node shared by all users. The login nodes are meant for logging in, copying files, editing, compiling, running short tests (no more than a couple of minutes), submitting jobs, checking job status, etc. If you are unsure about the basic interaction with Unix-like systems, here is a good resource to start with. Jo`bs started via Slurm run on the compute nodes.
 
->[!Warning]
+>[<div class="callout callout-warning">
+  <div class="callout-title">🚨 Warning</div>
+  This will overwrite existing files.
+</div>]
 > **NEVER RUN A JOB IN THE LOGIN NODE!!! THE LOGIN NODE IS ONLY FOR LOOKING AND MANAGING FILES, INSTALLING SOFTWARE AND WRITE SCRIPTS** 
 
 There are two ways for doing this:
@@ -140,12 +143,18 @@ freecores|sort -V
 | $PROJECTS |	Shared disk space for research projects	| YES |	On demand	Project period |
 | $LOCALSCRATCH |	Local to compute node	| NO | Varies (4.5 – 16 T)	| Until a job is completed |
 
->[!Warning]
+>[<div class="callout callout-warning">
+  <div class="callout-title">🚨 Warning</div>
+  This will overwrite existing files.
+</div>]
 > Although all users have access to the $HOME, please DO NOT USE THE $HOME FOR STORAGE any FILES (e.g. fastq, sam, databases). The $HOME directory is intended to allocate small software executables and configuration files.
 
 ### Where can I storage large files? 
 
->[!Important]
+>[<div class="callout callout-important">
+  <div class="callout-title">⚠️ Important</div>
+  Remember to change your user name.
+</div>]
 > During this workshop all data, scripts, results and so must be written in
 ```
 /cluster/projects/nn9987k
@@ -416,7 +425,10 @@ grep D0T87_RS12665 Bacteroides51.faa
 ```
 We found the amylase!!!
 
->[!Important]
+>[<div class="callout callout-important">
+  <div class="callout-title">⚠️ Important</div>
+  Remember to change your user name.
+</div>]
 > Remember to copy the results to the ```/cluster/projects/nn9987k/$USER```
 
 ```bash
