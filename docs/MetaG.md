@@ -111,7 +111,40 @@ Vortex_SRE_4.fastq.gz
 
 
 
+Asking for an interactive job:
 
+```bash
+srun \
+--account=nn9987k \
+--partition=normal \
+--gres=localscratch:200G \
+--cpus-per-task 12 \
+--nodes 1 \
+--mem=10G \
+--time=02:00:00 \
+--pty bash \
+-i
+
+
+```
+
+An then let's copy the Reads to the $LOCALSCRATCH
+
+```bash
+
+rsync -aPLh /cluster/projects/nn9987k/UiO_BW_2025/metaG/rawdata/*.fastq.gz $LOCALSCRATCH/ 
+cd $LOCALSCRATCH
+
+```
+
+Load the conda environment and run Nanoplot
+
+```bash
+module load Anaconda3/2022.10
+conda activate /cluster/projects/nn9987k/.share/conda_environments/NANOPAKQC
+eval "$(conda shell.bash hook)"
+module load parallel/20240322-GCCcore-13.2.0
+```
 
 
 ```bash
