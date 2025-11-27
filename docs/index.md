@@ -15,3 +15,5 @@ This hands-on workshop introduces participants to the bioinformatics of function
 ## 📚 Contents
 
 * [HPC-101](https://thememolab.github.io/Functional-Meta-Omics-Bioinformatics-in-Action/HPC-101-WorkingWithSigma2.html)
+* [Metagenomics: From longreads to circular MAGS](https://thememolab.github.io/Functional-Meta-Omics-Bioinformatics-in-Action/MetaG.html) 
+* [Introduction to Metaproteomics]()
