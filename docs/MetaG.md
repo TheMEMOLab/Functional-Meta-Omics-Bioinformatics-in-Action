@@ -5,7 +5,9 @@ prev: HPC-101-WorkingWithSigma2.html
 ---
 {% include navbar.html %}
 
-# Case-Study: Working with the BIO326 metagenomic samples.
+# Metagenomics from Long Reads to Circular genomes.
+
+## Case-Study: Working with the NMBU BIO326 course metagenomic samples.
 
 ## The effect of DNA extraction methods on ONT sequence quality.
 
@@ -21,7 +23,10 @@ In the wetlab samples were divided as follow:
 These samples were sequenced using the PromethION and it produced something like this:
 
 ```bash
-(base) prom@PC24B170:/data/20250319_Bio326_PROK/20250319_Bio326_PROK/20250319_1452_3C_PAY86999_d557822e$ ls fastq_pass/
+ls /cluster/projects/nn9987k/UiO_BW_2025/metaG/rawdata/fastq_pass
+```
+
+```console
 barcode01  barcode03  barcode05  barcode07  barcode09  barcode11  barcode13  barcode15  barcode17  barcode19  barcode21  barcode23
 barcode02  barcode04  barcode06  barcode08  barcode10  barcode12  barcode14  barcode16  barcode18  barcode20  barcode22  unclassified
 ```
@@ -29,7 +34,7 @@ barcode02  barcode04  barcode06  barcode08  barcode10  barcode12  barcode14  bar
 As you see there are multiple folders with different barcodes and inside a lot of fastqfiles:
 
 ```bash
-(base) prom@PC24B170:/data/20250319_Bio326_PROK/20250319_Bio326_PROK/20250319_1452_3C_PAY86999_d557822e/fastq_pass/barcode01$ ls |head -3
+(base) ls barcode01 |head -3
 PAY86999_pass_barcode01_d557822e_20eb73bc_0.fastq.gz
 PAY86999_pass_barcode01_d557822e_20eb73bc_100.fastq.gz
 PAY86999_pass_barcode01_d557822e_20eb73bc_101.fastq.gz
@@ -38,8 +43,7 @@ PAY86999_pass_barcode01_d557822e_20eb73bc_101.fastq.gz
 We can use the information from the Lysis method, Group and Barcode and merge these fastq files into single fastq files for each lyisis method and Group using a loop as follow, having a text file like:
 
 ```bash
-less barcodes.tsv
-```
+less correlation.txt
 
 <details>
 
@@ -66,7 +70,7 @@ Vortex_SRE_4    barcode13
 and use a loop:
 
 ```bash
- cat barcodes.tsv |while read -r line; do NAME=$(echo $line|awk '{print $1}'); BC=$(echo $line|awk '{print $2}'); echo $BC; zcat fastq_pass/$BC/*fastq.gz |pigz -p 12 >  rawdata/$NAME.fastq.gz; done
+ cat correlation.txt |while read -r line; do NAME=$(echo $line|awk '{print $1}'); BC=$(echo $line|awk '{print $2}'); echo $BC; zcat fastq_pass/$BC/*fastq.gz |pigz -p 12 >  rawdata/$NAME.fastq.gz; done
 ```
 Then we will end with something like:
 
@@ -91,7 +95,24 @@ Vortex_SRE_4.fastq.gz
 ```
 </details>
 
-Then using the usefull NanoPlot:
+<div class="callout callout-important">
+  <div class="callout-title">⚠️ Important</div>
+  All thse files can be found here:
+  /cluster/projects/nn9987k/UiO_BW_2025/metaG/rawdata
+</div>
+
+## QC using Nanoplot:
+
+
+<div class="callout callout-note">
+  <div class="callout-title">💡 Note</div>
+  Excercise. Let's use NanoPlot to check the QC of the reads.
+</div>
+
+
+
+
+
 
 ```bash
  parallel -j 12 "NanoPlot --fastq {} --N50 --loglength -o {}.Nanoplot.dir" ::: *.gz
