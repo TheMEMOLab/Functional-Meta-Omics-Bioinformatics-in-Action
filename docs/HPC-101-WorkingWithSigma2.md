@@ -101,10 +101,10 @@ The HPC clusters are resources that are shared between many users, and to ensure
 
 When you log in to a cluster, you are logged in to a login node shared by all users. The login nodes are meant for logging in, copying files, editing, compiling, running short tests (no more than a couple of minutes), submitting jobs, checking job status, etc. If you are unsure about the basic interaction with Unix-like systems, here is a good resource to start with. Jo`bs started via Slurm run on the compute nodes.
 
-[<div class="callout callout-warning">
+<div class="callout callout-warning">
   <div class="callout-title">🚨 Warning</div>
   **NEVER RUN A JOB IN THE LOGIN NODE!!! THE LOGIN NODE IS ONLY FOR LOOKING AND MANAGING FILES, INSTALLING SOFTWARE AND WRITE SCRIPTS**
-</div>]
+</div>
 
 There are two ways for doing this:
 * Interactive Job (via SLURM)
@@ -142,22 +142,21 @@ freecores|sort -V
 | $PROJECTS |	Shared disk space for research projects	| YES |	On demand	Project period |
 | $LOCALSCRATCH |	Local to compute node	| NO | Varies (4.5 – 16 T)	| Until a job is completed |
 
-[<div class="callout callout-warning">
+<div class="callout callout-warning">
   <div class="callout-title">🚨 Warning</div>
    Although all users have access to the $HOME, please DO NOT USE THE $HOME FOR STORAGE any FILES (e.g. fastq, sam, databases). The $HOME directory is intended to allocate small software executables and configuration files.
-</div>]
+</div>
 
 
 ### Where can I storage large files? 
 
->[<div class="callout callout-important">
+<div class="callout callout-important">
   <div class="callout-title">⚠️ Important</div>
-  Remember to change your user name.
-</div>]
-> During this workshop all data, scripts, results and so must be written in
+  During this workshop all data, scripts, results and so must be written in
 ```
 /cluster/projects/nn9987k
 ```
+</div>
 
 Let's go there and create a folder where you can work:
 
@@ -521,7 +520,7 @@ date
 ```
 
 >[!Note]
->A copy of this script is storage in ```tree /cluster/projects/nn9987k/UiO_BW_2025/HPC101//SLURM/myfirstsbatch.SLURM.sh```
+>A copy of this script is storage in ```tree /cluster/projects/nn9987k/UiO_BW_2025/HPC101/SLURM/myfirstsbatch.SLURM.sh```
 
 We can then submit the job by:
 
