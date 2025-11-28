@@ -152,7 +152,26 @@ module load parallel/20240322-GCCcore-13.2.0
 
 This command generated a large number of file and directories:
 
-Let's take a look
+Let's take a look:
+
+<details>
+FastPrep_1.fastq.gz.Nanoplot.dir
+FastPrep_2.fastq.gz.Nanoplot.dir
+FastPrep_3.fastq.gz.Nanoplot.dir
+FastPrep_4.fastq.gz.Nanoplot.dir
+
+FastPrep_1.fastq.gz.Nanoplot.dir/
+├── LengthvsQualityScatterPlot_dot.html
+├── LengthvsQualityScatterPlot_dot.png
+├── LengthvsQualityScatterPlot_kde.html
+├── LengthvsQualityScatterPlot_kde.png
+├── LengthvsQualityScatterPlot_loglength_dot.html
+├── LengthvsQualityScatterPlot_loglength_dot.png
+├── LengthvsQualityScatterPlot_loglength_kde.html
+├── LengthvsQualityScatterPlot_loglength_kde.png
+├── NanoPlot_20251128_1602.log
+
+<details>
 
 And as we have been working we can collect the NanoStats.txt
 
