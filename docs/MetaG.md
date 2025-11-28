@@ -198,7 +198,12 @@ while read -r line;
 done
 ```
 
-And as we have been working we can collect the NanoStats.txt
+Let's send all the files to Our directory in ``` /cluster/projects/nn9987k/$USER/metaG/results/NANOPLOT ```
+
+```bash
+mkdir -p /cluster/projects/nn9987k/$USER/metaG/results/NANOPLOT 
+ls -1|grep Nano|while read -r line; do rsync -aLhv $line /cluster/projects/nn9987k/$USER/metaG/results/NANOPLOT ;done 
+```
 
 <details>
 
@@ -218,11 +223,6 @@ Vortex_SRE_4.NanoStats.txt
 ```
 
 </details>
-
-Let's work with these files. Download the files from 
-
-https://arken.nmbu.no/~auve/BIO326/bio326NanoStats.Prok.dir.zip
-
 
 
 >[!Tip]
