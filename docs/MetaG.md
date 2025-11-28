@@ -124,8 +124,6 @@ srun \
 --time=02:00:00 \
 --pty bash \
 -i
-
-
 ```
 
 An then let's copy the Reads to the $LOCALSCRATCH
@@ -141,15 +139,20 @@ Load the conda environment and run Nanoplot
 
 ```bash
 module load Anaconda3/2022.10
-conda activate /cluster/projects/nn9987k/.share/conda_environments/NANOPAKQC
 eval "$(conda shell.bash hook)"
+conda activate /cluster/projects/nn9987k/.share/conda_environments/NANOPAKQC
 module load parallel/20240322-GCCcore-13.2.0
 ```
 
 
 ```bash
  parallel -j 12 "NanoPlot --fastq {} --N50 --loglength -o {}.Nanoplot.dir" ::: *.gz
+
 ```
+
+This command generated a large number of file and directories:
+
+Let's take a look
 
 And as we have been working we can collect the NanoStats.txt
 
