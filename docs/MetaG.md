@@ -44,6 +44,7 @@ We can use the information from the Lysis method, Group and Barcode and merge th
 
 ```bash
 less correlation.txt
+```
 
 <details>
 
@@ -159,7 +160,13 @@ FastPrep_1.fastq.gz.Nanoplot.dir
 FastPrep_2.fastq.gz.Nanoplot.dir
 FastPrep_3.fastq.gz.Nanoplot.dir
 FastPrep_4.fastq.gz.Nanoplot.dir
+</details>
 
+```bash
+tree FastPrep_1.fastq.gz.Nanoplot.dir/
+```
+
+<details>
 FastPrep_1.fastq.gz.Nanoplot.dir/
 ├── LengthvsQualityScatterPlot_dot.html
 ├── LengthvsQualityScatterPlot_dot.png
@@ -171,7 +178,25 @@ FastPrep_1.fastq.gz.Nanoplot.dir/
 ├── LengthvsQualityScatterPlot_loglength_kde.png
 ├── NanoPlot_20251128_1602.log
 
-<details>
+</details>
+
+Rename the files:
+
+```bash
+WD=$(pwd);
+ls -1|\
+grep Nano|\
+while read -r line; 
+  do echo $line;A=$(echo $line|sed 's/.fastq.gz.Nanoplot.dir//g');
+   cd $line; 
+   for i in *.*; 
+    do 
+    echo $i;
+    mv $i $A.$i;
+    done; 
+  cd $WD;
+done
+```
 
 And as we have been working we can collect the NanoStats.txt
 
