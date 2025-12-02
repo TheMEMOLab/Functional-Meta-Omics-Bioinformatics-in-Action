@@ -224,33 +224,53 @@ Vortex_SRE_4.NanoStats.txt
 
 </details>
 
+Then, let's take a quick look into the stats:
 
->[!Tip]
-> If you have access to the terminal you can download the file by:
-> ``` wget https://arken.nmbu.no/~auve/BIO326/bio326NanoStats.Prok.dir.zip ```
+```bash
+cd /cluster/projects/nn9987k/auve/metaG/results/NANOPLOT
+
+```
+
+
+Download the NANOSTATS results from:
+
+```console
+https://arken.nmbu.no/~auve/obw_2025/
+```
+
+<div class="callout callout-note">
+  <div class="callout-title">💡 Note</div>
+  If you have access to the terminal you can download the file by:
+``` wget https://arken.nmbu.no/~auve/obw_2025/NanoStats.dir.zip ```
+</div>
+
 
 Decompress the Zip file and let's move to R and RStudio.
->[!Tip]
-> If you have access to the terminal you unzip the file by:
-> ``` unzip bio326NanoStats.Prok.dir.zip ```
+
+<div class="callout callout-note">
+  <div class="callout-title">💡 Note</div>
+   If you have access to the terminal you unzip the file by:
+    ``` unzip NanoStats.dir.zip ```
+</div>
+
 
 <details>
 
 ```bash
-Archive:  bio326NanoStats.Prok.dir.zip
-   creating: bio326NanoStats.Prok.dir/
-  inflating: bio326NanoStats.Prok.dir/FastPrep_2.NanoStats.txt
-  inflating: bio326NanoStats.Prok.dir/FastPrep_3.NanoStats.txt
-  inflating: bio326NanoStats.Prok.dir/FastPrep_1.NanoStats.txt
-  inflating: bio326NanoStats.Prok.dir/Vortex_SRE_1.NanoStats.txt
-  inflating: bio326NanoStats.Prok.dir/Vortex_3.NanoStats.txt
-  inflating: bio326NanoStats.Prok.dir/Vortex_4.NanoStats.txt
-  inflating: bio326NanoStats.Prok.dir/Vortex_SRE_4.NanoStats.txt
-  inflating: bio326NanoStats.Prok.dir/Vortex_1.NanoStats.txt
-  inflating: bio326NanoStats.Prok.dir/FastPrep_4.NanoStats.txt
-  inflating: bio326NanoStats.Prok.dir/Vortex_2.NanoStats.txt
-  inflating: bio326NanoStats.Prok.dir/Vortex_SRE_2.NanoStats.txt
-  inflating: bio326NanoStats.Prok.dir/Vortex_SRE_3.NanoStats.txt
+Archive:  NanoStats.dir.zip
+   creating: NanoStats.dir/
+  inflating: NanoStats.dir/Vortex_1.NanoStats.txt
+  inflating: NanoStats.dir/Vortex_4.NanoStats.txt
+  inflating: NanoStats.dir/Vortex_SRE_2.NanoStats.txt
+  inflating: NanoStats.dir/Vortex_SRE_4.NanoStats.txt
+  inflating: NanoStats.dir/Vortex_SRE_1.NanoStats.txt
+  inflating: NanoStats.dir/Vortex_2.NanoStats.txt
+  inflating: NanoStats.dir/Vortex_SRE_3.NanoStats.txt
+  inflating: NanoStats.dir/FastPrep_2.NanoStats.txt
+  inflating: NanoStats.dir/FastPrep_3.NanoStats.txt
+  inflating: NanoStats.dir/FastPrep_1.NanoStats.txt
+  inflating: NanoStats.dir/FastPrep_4.NanoStats.txt
+  inflating: NanoStats.dir/Vortex_3.NanoStats.txt
 ```
 
 </details>
@@ -461,8 +481,41 @@ What is Kraken2? According to [Wood and Salzberg, GEnome Biology 2014](https://g
 
 We can run Kraken2 something like this:
 
+1) Ask for an interactive NODE:
+
 ```bash
-kraken2 --db shared_databases/kraken2/PlusPF-8/ --threads 10 --output FastPrep_1.kraken2.nonames.out --report FastPrep_1.kraken2.report.tsv FastPrep_1.fastq.gz
+srun \
+--account=nn9987k \
+--partition=normal \
+--gres=localscratch:200G \
+--cpus-per-task 12 \
+--nodes 1 \
+--mem=10G \
+--time=02:00:00 \
+--pty bash \
+-i
+
+```
+2) Transfer one of the files to the localscratch for faster computation:
+
+
+```
+rsync -aPLhv /cluster/projects/nn9987k/UiO_BW_2025/metaG/rawdata/FastPrep_1.fastq.gz $LOCALSCRATCH && cd $LOCALSCRATCH
+
+```
+
+3) Activate the conda environment
+
+```bash
+
+module load Anaconda3/2022.10
+eval "$(conda shell.bash hook)"
+conda activate /cluster/projects/nn9987k/.share/conda_environments/KRAKEN2
+
+```
+
+```bash
+kraken2 --db  /cluster/projects/nn9987k/.share/shared_databases/kraken2/PlusPF-8/ --threads $SLURM_CPUS_ON_NODE --output FastPrep_1.kraken2.nonames.out --report FastPrep_1.kraken2.report.tsv FastPrep_1.fastq.gz
 ```
 It will produce a report like this:
 
@@ -516,17 +569,24 @@ head  FastPrep_1.kraken2.species.tsv
 
 All the Kraken2 results can be donwloaded here:
 
-https://arken.nmbu.no/~auve/BIO326/kraken2Reports.zip
+https://arken.nmbu.no/~auve/obw_2025/kraken2Reports.zip
 
 
->[!Tip]
-> If you have access to the terminal you can download the file by:
-> ``` wget https://arken.nmbu.no/~auve/BIO326/kraken2Reports.zip ```
+<div class="callout callout-note">
+  <div class="callout-title">💡 Note</div>
+  If you have access to the terminal you can download the file by:
+   ``` wget https://arken.nmbu.no/~auve/obw_2025/kraken2Reports.zip ```
+
+</div>
+
 
 Decompress the Zip file and let's move to R and RStudio.
->[!Tip]
-> If you have access to the terminal you unzip the file by:
-> ``` unzip kraken2Reports.zip ```
+
+<div class="callout callout-note">
+  <div class="callout-title">💡 Note</div>
+   If you have access to the terminal you unzip the file by:
+   ``` unzip kraken2Reports.zip ```
+</div>
 
 Let's check this directory:
 
