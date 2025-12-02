@@ -603,17 +603,17 @@ ls kraken2Reports|head -4
 
 ```
 
-<details>
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #34db66ff; border-radius:6px;">
+<b>💻 Console output:</b>
 
-```
+<pre><code>
+Archive:  NanoStats.dir.zip
 FastPrep_1.fastq.kraken2.nonames.out
 FastPrep_1.fastq.kraken2.report.tsv
 FastPrep_1.kraken2.species.tsv
 FastPrep_2.fastq.kraken2.nonames.out
-
-```
-
-</details>
+</code></pre>
+</div>
 
 
 We have the results, now let's load the kraken2.species.tsv filtered results into a table object in R:
@@ -657,6 +657,8 @@ Tables <- map(files, ~ read_tsv(.,
 ```
 
 </details>
+
+
 
 Transform each table: keep only Species Name and Percentage of reads
 
