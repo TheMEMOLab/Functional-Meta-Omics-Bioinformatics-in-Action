@@ -5,6 +5,8 @@ prev: HPC-101-WorkingWithSigma2.html
 ---
 {% include navbar.html %}
 
+<link rel="stylesheet" href="assets/css/callouts.css">
+
 # Metagenomics from Long Reads to Circular genomes.
 
 ## Case-Study: Working with the NMBU BIO326 course metagenomic samples.
@@ -78,9 +80,11 @@ Then we will end with something like:
 ```bash
 ls -1 rawdata/
 ```
+
 <details>
 
-```
+```console
+
 FastPrep_1.fastq.gz
 FastPrep_2.fastq.gz
 FastPrep_3.fastq.gz
@@ -93,6 +97,7 @@ Vortex_SRE_1.fastq.gz
 Vortex_SRE_2.fastq.gz
 Vortex_SRE_3.fastq.gz
 Vortex_SRE_4.fastq.gz
+
 ```
 </details>
 
@@ -541,7 +546,7 @@ We can parse this report and only keep the organisms with > 0.1 % of reads class
 
 ```bash
 
-cat FastPrep_1.kraken2.report.tsv |awk -F "\t" '{
+cat FastPrep_1.kraken2.report.tsv |sed 's/  //'|awk -F "\t" '{
     if ($1 > 0.1 && $4 ~ /^S/) {
         name = $6                      # taxon name column
         sub(/^[ \t]+/, "", name)       # remove leading spaces
