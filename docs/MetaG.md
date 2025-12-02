@@ -49,7 +49,14 @@ less correlation.txt
 ```
 
 <div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #3498db; border-radius:6px;">
-<b>💻 Console output:</b>
+<b>💡 Console output:</b>
+
+<pre><code>
+Rscript my_script.R
+Running...
+Done!
+</code></pre>
+</div>
 
 Vortex_SRE_1    barcode01
 FastPrep_1      barcode02
@@ -64,9 +71,6 @@ Vortex_3        barcode10
 FastPrep_4      barcode11
 Vortex_4        barcode12
 Vortex_SRE_4    barcode13
-
-<pre><code>
-</div>
 
 and use a loop:
 
