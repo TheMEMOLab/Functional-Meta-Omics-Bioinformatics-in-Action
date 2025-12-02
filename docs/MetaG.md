@@ -620,7 +620,25 @@ We have the results, now let's load the kraken2.species.tsv filtered results int
 
 <details>
 
-<summary>R code</summary>
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #34db66ff; border-radius:6px;">
+<b>💻 Console output:</b>
+
+<pre><code>
+Vortex_SRE_1    barcode01
+FastPrep_1      barcode02
+Vortex_1        barcode03
+Vortex_2        barcode04
+FastPrep_2      barcode05
+Vortex_SRE_2    barcode06
+Vortex_3        barcode07
+Vortex_SRE_3    barcode08
+FastPrep_3      barcode09
+Vortex_3        barcode10
+FastPrep_4      barcode11
+Vortex_4        barcode12
+Vortex_SRE_4    barcode13
+</code></pre>
+</div>
 
 ```r
 setwd(".") #change this to your workdirectory
@@ -644,13 +662,20 @@ Transform each table: keep only Species Name and Percentage of reads
 
 <details>
 
-<summary>R code</summary>
 
-```r
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #6634dbff; border-radius:6px;">
+<b>💻 Console output:</b>
+
+<pre><code class="r">
+
 Tables2Abundance <- map(Tables, ~ select(., SpeciesName, Percentage) %>%
                           mutate(Percentage = as.numeric(Percentage)))
 
-```
+
+</code></pre>
+</div>
+
+
 
 </details>
 
