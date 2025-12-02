@@ -1,13 +1,9 @@
 title: "Functional Meta-Omics: Bioinformatics in Action"
-description: "This hands-on workshop introduces participants to the bioinformatics of functional meta-omics, combining metagenomics and metaproteomics to explore microbial communities from genes to functions. "
+description: "Hands-on workshop on functional meta-omics."
 theme: jekyll-theme-cayman
 plugins:
   - jekyll-octicons
 
-
-
-
-
-
-
-
+markdown: kramdown
+kramdown:
+  parse_block_html: true
