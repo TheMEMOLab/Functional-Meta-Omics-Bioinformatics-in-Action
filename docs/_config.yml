@@ -3,9 +3,7 @@ description: "This hands-on workshop introduces participants to the bioinformati
 theme: jekyll-theme-cayman
 plugins:
   - jekyll-octicons
-markdown: kramdown
-kramdown:
-  parse_block_html: true
+
 
 
 
