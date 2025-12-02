@@ -49,7 +49,7 @@ less correlation.txt
 ```
 
 <div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #34db66ff; border-radius:6px;">
-<b>💡 Console output:</b>
+<b>💻 Console output:</b>
 
 <pre><code>
 Vortex_SRE_1    barcode01
