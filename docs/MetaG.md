@@ -48,9 +48,8 @@ We can use the information from the Lysis method, Group and Barcode and merge th
 less correlation.txt
 ```
 
-<details>
-
-```console
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #3498db; border-radius:6px;">
+<b>💻 Console output:</b>
 
 Vortex_SRE_1    barcode01
 FastPrep_1      barcode02
@@ -66,9 +65,8 @@ FastPrep_4      barcode11
 Vortex_4        barcode12
 Vortex_SRE_4    barcode13
 
-```
+<pre><code>
 
-</details>
 
 and use a loop:
 
