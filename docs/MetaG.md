@@ -540,6 +540,21 @@ head -11 FastPrep_1.fastq.kraken2.report.tsv
 We can parse this report and only keep the organisms with > 0.1 % of reads classified:
 
 ```bash
+
+cat FastPrep_1.kraken2.report.tsv |awk -F "\t" '{
+    if ($1 > 0.1 && $4 ~ /^S/) {
+        name = $6                      # taxon name column
+        sub(/^[ \t]+/, "", name)       # remove leading spaces
+        gsub(/ /, "_", name)           # replace internal spaces with _
+        print $1"\t"$2"\t"name
+    }
+}' >  FastPrep_1.kraken2.species.tsv
+
+```
+
+check the first lines
+
+```bash
 head  FastPrep_1.kraken2.species.tsv
  
 ```
@@ -609,7 +624,7 @@ We have the results, now let's load the kraken2.species.tsv filtered results int
 <summary>R code</summary>
 
 ```R
-setwd("kraken2Reports")
+setwd(".") #change this to your workdirectory
 # List files
 files <- dir(pattern = "*.kraken2.species.tsv")
 # Extract sample IDs from filenames
@@ -832,18 +847,18 @@ Last session we found the data generated in this course BIO326_2025 it is indeed
 As we have 12 fastq files:
 
 ```bash
-/cluster/projects/nn9987k/BIO326-2025/metaG/rawdata/dataBIO326_2025/rawdata/FastPrep_1.fastq.gz
-/cluster/projects/nn9987k/BIO326-2025/metaG/rawdata/dataBIO326_2025/rawdata/FastPrep_2.fastq.gz
-/cluster/projects/nn9987k/BIO326-2025/metaG/rawdata/dataBIO326_2025/rawdata/FastPrep_3.fastq.gz
-/cluster/projects/nn9987k/BIO326-2025/metaG/rawdata/dataBIO326_2025/rawdata/FastPrep_4.fastq.gz
-/cluster/projects/nn9987k/BIO326-2025/metaG/rawdata/dataBIO326_2025/rawdata/Vortex_1.fastq.gz
-/cluster/projects/nn9987k/BIO326-2025/metaG/rawdata/dataBIO326_2025/rawdata/Vortex_2.fastq.gz
-/cluster/projects/nn9987k/BIO326-2025/metaG/rawdata/dataBIO326_2025/rawdata/Vortex_3.fastq.gz
-/cluster/projects/nn9987k/BIO326-2025/metaG/rawdata/dataBIO326_2025/rawdata/Vortex_4.fastq.gz
-/cluster/projects/nn9987k/BIO326-2025/metaG/rawdata/dataBIO326_2025/rawdata/Vortex_SRE_1.fastq.gz
-/cluster/projects/nn9987k/BIO326-2025/metaG/rawdata/dataBIO326_2025/rawdata/Vortex_SRE_2.fastq.gz
-/cluster/projects/nn9987k/BIO326-2025/metaG/rawdata/dataBIO326_2025/rawdata/Vortex_SRE_3.fastq.gz
-/cluster/projects/nn9987k/BIO326-2025/metaG/rawdata/dataBIO326_2025/rawdata/Vortex_SRE_4.fastq.gz
+/cluster/projects/nn9987k/UiO_BW_2025/metaG/rawdata/FastPrep_1.fastq.gz
+/cluster/projects/nn9987k/UiO_BW_2025/metaG/rawdata//FastPrep_2.fastq.gz
+/cluster/projects/nn9987k/UiO_BW_2025/metaG/rawdata//FastPrep_3.fastq.gz
+/cluster/projects/nn9987k/UiO_BW_2025/metaG/rawdata/FastPrep_4.fastq.gz
+/cluster/projects/nn9987k/UiO_BW_2025/metaG/rawdata//Vortex_1.fastq.gz
+/cluster/projects/nn9987k/UiO_BW_2025/metaG/rawdata//Vortex_2.fastq.gz
+/cluster/projects/nn9987k/UiO_BW_2025/metaG/rawdata//Vortex_3.fastq.gz
+/cluster/projects/nn9987k/UiO_BW_2025/metaG/rawdata//Vortex_4.fastq.gz
+/cluster/projects/nn9987k/UiO_BW_2025/metaG/rawdata//Vortex_SRE_1.fastq.gz
+/cluster/projects/nn9987k/UiO_BW_2025/metaG/rawdata//Vortex_SRE_2.fastq.gz
+/cluster/projects/nn9987k/UiO_BW_2025/metaG/rawdata/Vortex_SRE_3.fastq.gz
+/cluster/projects/nn9987k/UiO_BW_2025/metaG/rawdata//Vortex_SRE_4.fastq.gz
 ```
 We should clean this for this, instead of running sbatch 12 times we can use a useful feature of the HPC that is parallelization by [Array jobs](https://documentation.sigma2.no/jobs/job_scripts/array_jobs.html).
 
@@ -970,8 +985,8 @@ And we can run as follow:
 
 ```bash
 cd /cluster/projects/nn9987k/$USER/
-ls -1 /cluster/projects/nn9987k/BIO326-2025/metaG/rawdata/dataBIO326_2025/rawdata/|sed 's/.fastq.gz//g' > SampleList.txt
-sbatch -a 1-12 /cluster/projects/nn9987k/BIO326-2025/metaG/scripts/1_chopper.SLURM.sh /cluster/projects/nn9987k/BIO326-2025/metaG/SampleList.txt /cluster/projects/nn9987k/BIO326-2025/metaG/rawdata/dataBIO326_2025/rawdata/  /cluster/projects/nn9987k/$USER/metaG/results/ChopperBio326_25 && mkdir -p /cluster/projects/nn9987k/$USER/metaG/results/ChopperBio326_25
+ls -1 /cluster/projects/nn9987k/UiO_BW_2025/metaG/rawdata/|sed 's/.fastq.gz//g' > SampleList.txt
+sbatch -a 1-12 /cluster/projects/nn9987k/UiO_BW_2025/metaG/scripts/1_chopper.SLURM.sh /cluster/projects/nn9987k/UiO_BW_2025/metaG/SampleList.txt /cluster/projects/nn9987k/UiO_BW_2025/metaG/rawdata/  /cluster/projects/nn9987k/$USER/metaG/results/Chopper && mkdir -p /cluster/projects/nn9987k/$USER/metaG/results/Chopper
 ```
 
 This will produce a directory With the following files:
@@ -990,7 +1005,7 @@ FastPrep_2.chopper.fq.gz  FastPrep_4.chopper.fq.gz  Vortex_2.chopper.fq.gz  Vort
 To extend the ONT reads we will use the [Flye]() assembler with the ```--meta``` flag:
 
 <details>
-<summary>This template /cluster/projects/nn9987k/BIO326-2025/metaG/scripts/2_flye.SLURM.chr.sh</summary>
+<summary>This template /cluster/projects/nn9987k/UiO_BW_2025/metaG/scripts/2_flye.SLURM.chr.sh</summary>
 
 The arguments are:
 
@@ -1112,7 +1127,7 @@ date
 To run we can do something like:
 
 ```bash
-sbatch /cluster/projects/nn9987k/BIO326-2025/metaG/scripts/2_flye.SLURM.chr.sh MetaAssBIO326_25 /cluster/projects/nn9987k/$USER/metaG/results/ChopperBio326_25 /cluster/projects/nn9987k/$USER/metaG/results/FlyAssemblyBIO326_25 && mkdir -p /cluster/projects/nn9987k/$USER/metaG/results/FlyAssemblyBIO326_25
+sbatch /cluster/projects/nn9987k/UiO_BW_2025/metaG/scripts/2_flye.SLURM.chr.sh MetaAssBIO326_25 /cluster/projects/nn9987k/$USER/metaG/results/Chopper /cluster/projects/nn9987k/$USER/metaG/results/FlyAssembly && mkdir -p /cluster/projects/nn9987k/$USER/metaG/results/FlyAssembly
 ```
 ## 3. Polishing.
 
