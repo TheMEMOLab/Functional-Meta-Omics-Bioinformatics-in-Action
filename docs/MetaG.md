@@ -483,17 +483,13 @@ We can run Kraken2 something like this:
 
 1) Ask for an interactive NODE:
 
+<div class="callout callout-note">
+  <div class="callout-title">💡 Note</div>
+  The following script can activate an interactive job:
+</div>
+
 ```bash
-srun \
---account=nn9987k \
---partition=normal \
---gres=localscratch:200G \
---cpus-per-task 12 \
---nodes 1 \
---mem=10G \
---time=02:00:00 \
---pty bash \
--i
+/cluster/projects/nn9987k/UiO_BW_2025/HPC101/SLURM/srun.prarameters.Nonode.Account.sh 12 10G normal,bigmem,hugemem 20G nn9987k 02:00:00
 
 ```
 2) Transfer one of the files to the localscratch for faster computation:
@@ -576,7 +572,6 @@ https://arken.nmbu.no/~auve/obw_2025/kraken2Reports.zip
   <div class="callout-title">💡 Note</div>
   If you have access to the terminal you can download the file by:
    ``` wget https://arken.nmbu.no/~auve/obw_2025/kraken2Reports.zip ```
-
 </div>
 
 
