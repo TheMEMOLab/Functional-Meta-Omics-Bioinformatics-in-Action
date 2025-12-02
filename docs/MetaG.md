@@ -220,7 +220,8 @@ ls -1|grep Nano|while read -r line; do rsync -aLhv $line /cluster/projects/nn998
 
 <details>
 
-```
+```console
+
 FastPrep_1.NanoStats.txt
 FastPrep_2.NanoStats.txt
 FastPrep_3.NanoStats.txt
@@ -233,6 +234,7 @@ Vortex_SRE_1.NanoStats.txt
 Vortex_SRE_2.NanoStats.txt
 Vortex_SRE_3.NanoStats.txt
 Vortex_SRE_4.NanoStats.txt
+
 ```
 
 </details>
@@ -377,6 +379,7 @@ plot_list$ReadlengthN50
 
 library(patchwork)
 plot_list$Numberofreads + plot_list$ReadlengthN50
+
 ```
 
 </details>
