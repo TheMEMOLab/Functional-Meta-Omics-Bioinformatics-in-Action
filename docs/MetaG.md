@@ -99,6 +99,7 @@ Vortex_SRE_3.fastq.gz
 Vortex_SRE_4.fastq.gz
 
 ```
+
 </details>
 
 <div class="callout callout-important">
@@ -161,10 +162,12 @@ This command generated a large number of file and directories:
 Let's take a look:
 
 <details>
+
 FastPrep_1.fastq.gz.Nanoplot.dir
 FastPrep_2.fastq.gz.Nanoplot.dir
 FastPrep_3.fastq.gz.Nanoplot.dir
 FastPrep_4.fastq.gz.Nanoplot.dir
+
 </details>
 
 ```bash
@@ -172,6 +175,9 @@ tree FastPrep_1.fastq.gz.Nanoplot.dir/
 ```
 
 <details>
+
+```console
+
 FastPrep_1.fastq.gz.Nanoplot.dir/
 ├── LengthvsQualityScatterPlot_dot.html
 ├── LengthvsQualityScatterPlot_dot.png
@@ -182,6 +188,8 @@ FastPrep_1.fastq.gz.Nanoplot.dir/
 ├── LengthvsQualityScatterPlot_loglength_kde.html
 ├── LengthvsQualityScatterPlot_loglength_kde.png
 ├── NanoPlot_20251128_1602.log
+
+```
 
 </details>
 
