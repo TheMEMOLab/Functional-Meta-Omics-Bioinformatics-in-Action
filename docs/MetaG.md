@@ -81,10 +81,10 @@ Then we will end with something like:
 ls -1 rawdata/
 ```
 
-<details>
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #34db66ff; border-radius:6px;">
+<b>💻 Console output:</b>
 
-```console
-
+<pre><code>
 FastPrep_1.fastq.gz
 FastPrep_2.fastq.gz
 FastPrep_3.fastq.gz
@@ -97,10 +97,8 @@ Vortex_SRE_1.fastq.gz
 Vortex_SRE_2.fastq.gz
 Vortex_SRE_3.fastq.gz
 Vortex_SRE_4.fastq.gz
-
-```
-
-</details>
+</code></pre>
+</div>
 
 <div class="callout callout-important">
   <div class="callout-title">⚠️ Important</div>
@@ -161,23 +159,25 @@ This command generated a large number of file and directories:
 
 Let's take a look:
 
-<details>
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #34db66ff; border-radius:6px;">
+<b>💻 Console output:</b>
 
+<pre><code>
 FastPrep_1.fastq.gz.Nanoplot.dir
 FastPrep_2.fastq.gz.Nanoplot.dir
 FastPrep_3.fastq.gz.Nanoplot.dir
 FastPrep_4.fastq.gz.Nanoplot.dir
-
-</details>
+</code></pre>
+</div>
 
 ```bash
 tree FastPrep_1.fastq.gz.Nanoplot.dir/
 ```
 
-<details>
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #34db66ff; border-radius:6px;">
+<b>💻 Console output:</b>
 
-```console
-
+<pre><code>
 FastPrep_1.fastq.gz.Nanoplot.dir/
 ├── LengthvsQualityScatterPlot_dot.html
 ├── LengthvsQualityScatterPlot_dot.png
@@ -188,10 +188,8 @@ FastPrep_1.fastq.gz.Nanoplot.dir/
 ├── LengthvsQualityScatterPlot_loglength_kde.html
 ├── LengthvsQualityScatterPlot_loglength_kde.png
 ├── NanoPlot_20251128_1602.log
-
-```
-
-</details>
+</code></pre>
+</div>
 
 Rename the files:
 
@@ -218,10 +216,10 @@ mkdir -p /cluster/projects/nn9987k/$USER/metaG/results/NANOPLOT
 ls -1|grep Nano|while read -r line; do rsync -aLhv $line /cluster/projects/nn9987k/$USER/metaG/results/NANOPLOT ;done 
 ```
 
-<details>
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #34db66ff; border-radius:6px;">
+<b>💻 Console output:</b>
 
-```console
-
+<pre><code>
 FastPrep_1.NanoStats.txt
 FastPrep_2.NanoStats.txt
 FastPrep_3.NanoStats.txt
@@ -234,10 +232,8 @@ Vortex_SRE_1.NanoStats.txt
 Vortex_SRE_2.NanoStats.txt
 Vortex_SRE_3.NanoStats.txt
 Vortex_SRE_4.NanoStats.txt
-
-```
-
-</details>
+</code></pre>
+</div>
 
 Then, let's take a quick look into the stats:
 
@@ -254,7 +250,7 @@ https://arken.nmbu.no/~auve/obw_2025/
 ```
 
 <div class="callout callout-note">
-  <div class="callout-title">💡 Note</div>
+  <div class="callout-title">💡 Tip</div>
   If you have access to the terminal you can download the file by:
 ``` wget https://arken.nmbu.no/~auve/obw_2025/NanoStats.dir.zip ```
 </div>
@@ -263,15 +259,16 @@ https://arken.nmbu.no/~auve/obw_2025/
 Decompress the Zip file and let's move to R and RStudio.
 
 <div class="callout callout-note">
-  <div class="callout-title">💡 Note</div>
+  <div class="callout-title">💡 Tip</div>
    If you have access to the terminal you unzip the file by:
     ``` unzip NanoStats.dir.zip ```
 </div>
 
 
-<details>
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #34db66ff; border-radius:6px;">
+<b>💻 Console output:</b>
 
-```bash
+<pre><code>
 Archive:  NanoStats.dir.zip
    creating: NanoStats.dir/
   inflating: NanoStats.dir/Vortex_1.NanoStats.txt
@@ -286,16 +283,12 @@ Archive:  NanoStats.dir.zip
   inflating: NanoStats.dir/FastPrep_1.NanoStats.txt
   inflating: NanoStats.dir/FastPrep_4.NanoStats.txt
   inflating: NanoStats.dir/Vortex_3.NanoStats.txt
-```
-
-</details>
+</code></pre>
+</div>
 
 
 - **Using RStiudio to load these files:**
 
-<details>
-
-<summary>This chunk of code will generate some useful plots for us:</summary>
 
 ```r
 library(tidyverse)
@@ -382,16 +375,13 @@ plot_list$Numberofreads + plot_list$ReadlengthN50
 
 ```
 
-</details>
 
 As we can see the Bar plot is not the best plot to display and compare these results...
 
->[!Tip]
-> Let's use a violin plot:
-
-<details>
-
-<summary> R code </summary>
+<div class="callout callout-note">
+  <div class="callout-title">💡 Tip</div>
+  Let's use a violin plot:
+</div>
 
 ```R
 ReadLengthVP <- stats_wide %>% 
@@ -423,12 +413,9 @@ ReadLengthVP + N50VP
 
 ```
 
-</details>
 
 We can use some statistics like ANOVA and t-test to check if there is differences in the groups. The library ggpubr allows us to calculate these kind of statistics and visualize on the ggplot2 object:
-<details>
 
-<summary>R code</summary>
 
 ```r
 library(ggpubr)
@@ -456,13 +443,9 @@ N50VP <- N50VP +
 
 ReadLengthVP + N50VP
 ```
-</details>
 
 And modify some Color and astetics of the plot:
 
-<details>
-
-<summary>R code</summary>
 
 ```R
 ReadLengthVP <- ReadLengthVP +
@@ -477,13 +460,8 @@ N50VP <- N50VP +
   
 ReadLengthVP + N50VP
 ```
-</details>
 
 Saving the plot:
-
-<details>
-
-<summary>R code</summary>
 
 ```R
 MergedQCPlot <- ReadLengthVP + N50VP
@@ -491,7 +469,7 @@ MergedQCPlot <- ReadLengthVP + N50VP
 ggsave(MergeQCPlot,file="MergedPlot.QualityScores.pdf")
 
 ```
-</details>
+
 
 ## Taxonomy classification using Kraken2
 
