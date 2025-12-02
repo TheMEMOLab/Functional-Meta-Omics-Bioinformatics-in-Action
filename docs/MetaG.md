@@ -287,7 +287,7 @@ Archive:  NanoStats.dir.zip
 
 <summary>This chunk of code will generate some useful plots for us:</summary>
 
-```R
+```r
 library(tidyverse)
 
 # Define the directory containing your files
@@ -408,7 +408,10 @@ N50VP <- stats_wide %>%
   ggtitle('Read length N50')
 
 ReadLengthVP + N50VP
+
+
 ```
+
 </details>
 
 We can use some statistics like ANOVA and t-test to check if there is differences in the groups. The library ggpubr allows us to calculate these kind of statistics and visualize on the ggplot2 object:
@@ -416,7 +419,7 @@ We can use some statistics like ANOVA and t-test to check if there is difference
 
 <summary>R code</summary>
 
-```R
+```r
 library(ggpubr)
 
 ReadLengthVP <- ReadLengthVP +  # Global test
@@ -468,6 +471,7 @@ ReadLengthVP + N50VP
 Saving the plot:
 
 <details>
+
 <summary>R code</summary>
 
 ```R
@@ -626,9 +630,10 @@ FastPrep_2.fastq.kraken2.nonames.out
 We have the results, now let's load the kraken2.species.tsv filtered results into a table object in R:
 
 <details>
+
 <summary>R code</summary>
 
-```R
+```r
 setwd(".") #change this to your workdirectory
 # List files
 files <- dir(pattern = "*.kraken2.species.tsv")
@@ -649,11 +654,13 @@ Tables <- map(files, ~ read_tsv(.,
 Transform each table: keep only Species Name and Percentage of reads
 
 <details>
+
 <summary>R code</summary>
 
-```R
+```r
 Tables2Abundance <- map(Tables, ~ select(., SpeciesName, Percentage) %>%
                           mutate(Percentage = as.numeric(Percentage)))
+
 ```
 
 </details>
@@ -661,9 +668,10 @@ Tables2Abundance <- map(Tables, ~ select(., SpeciesName, Percentage) %>%
 This is still an object of class list we can reduce into a dataframe:
 
 <details>
+
 <summary>R code</summary>
 
-```R
+```r
 AbundanceTable <- reduce(Tables2Abundance, full_join, by = "SpeciesName") %>%
   rename_with(~ Names$sampleID, -SpeciesName) %>%
   mutate(across(-SpeciesName, ~ replace_na(.x, 0)))
@@ -676,9 +684,10 @@ Now we can use a hierarchical clustering to compare the samples. One of the most
 Let's use the library pheatmap (prety heatmaps) to do this:
 
 <details>
+
 <summary>R code</summary>
 
-```R
+```r
 library(pheatmap)
 AbundanceTable %>% 
   column_to_rownames("SpeciesName") %>%
@@ -692,9 +701,10 @@ This is not that prety...
 We can normalize the abundances to log2 to really apreciate the changes and create a matrix for the heatmap
 
 <details>
+
 <summary>R code </summary>
 
-```R
+```r
 MtrixForPH <- AbundanceTable %>%
   mutate(across(where(is.numeric), ~ log2(.x + 1))) %>%
   column_to_rownames("SpeciesName") %>%
@@ -706,9 +716,10 @@ MtrixForPH <- AbundanceTable %>%
 And then create the heatmap:
 
 <details>
+
 <summary>R code</summary>
 
-```R
+```r
 pheatmap(MtrixForPH)
 ```
 
@@ -717,9 +728,10 @@ pheatmap(MtrixForPH)
 We want to compare the treatments so the clustering in the rows (species) is not that necesary:
 
 <details>
+
 <summary>R code</summary>
 
-```R
+```r
 pheatmap(MtrixForPH, cluster_row=F, cellwidth = 16)
 ```
 
@@ -728,9 +740,10 @@ pheatmap(MtrixForPH, cluster_row=F, cellwidth = 16)
 Finally let's have a more "cool" color than the default:
 
 <details>
+
 <summary>R code</summary>
 
-```R
+```r
 library(viridis)
 Color <- rev(inferno(500))
 pheatmap(MtrixForPH, 
@@ -744,6 +757,7 @@ color=Color)
 We can even add a new object and define some colors for the Methods of DNA extraction
 
 <details>
+
 <summary>R code</summary>
 
 ```R
@@ -767,6 +781,7 @@ pheatmap(MtrixForPH,
 Now we can use the same Color palete to the Violinplots by creating a list
 
 <details>
+
 <summary>R code</summary>
 
 ```R
@@ -787,9 +802,10 @@ AnnotColor <- list(Method=AbundanceTable %>%
 And produce our Kraken2 heatmap:
 
 <details>
+
 <summary>R code</summary>
 
-```R
+```r
 KrakenPH <- pheatmap(MtrixForPH, 
          cluster_row=F,
          cellwidth = 16,
@@ -805,9 +821,10 @@ We can then combine this plot wiht the Violin plots we previous produce:
 First we need to convert the pheatmap object into a ggplot2 object. The library ggplotify is very helpful:
 
 <details>
+
 <summary>R code</summary>
 
-```R
+```r
 library(ggplotify)
 KrakenPH <- as.ggplot(KrakenPH)
 ```
