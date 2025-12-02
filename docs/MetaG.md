@@ -48,9 +48,9 @@ We can use the information from the Lysis method, Group and Barcode and merge th
 less correlation.txt
 ```
 
-<details>
+<details markdown="block">
 
-```
+```console
 
 Vortex_SRE_1    barcode01
 FastPrep_1      barcode02
