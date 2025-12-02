@@ -1132,7 +1132,7 @@ date
 To run we can do something like:
 
 ```bash
-sbatch /cluster/projects/nn9987k/UiO_BW_2025/metaG/scripts/2_flye.SLURM.chr.sh MetaAssBIO326_25 /cluster/projects/nn9987k/$USER/metaG/results/Chopper /cluster/projects/nn9987k/$USER/metaG/results/FlyAssembly && mkdir -p /cluster/projects/nn9987k/$USER/metaG/results/FlyAssembly
+sbatch /cluster/projects/nn9987k/UiO_BW_2025/metaG/scripts/2_flye.SLURM.chr.sh MetaAss /cluster/projects/nn9987k/$USER/metaG/results/Chopper /cluster/projects/nn9987k/$USER/metaG/results/FlyAssembly && mkdir -p /cluster/projects/nn9987k/$USER/metaG/results/FlyAssembly
 ```
 ## 3. Polishing.
 
