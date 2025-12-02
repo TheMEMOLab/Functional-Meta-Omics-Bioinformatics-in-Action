@@ -289,8 +289,13 @@ Archive:  NanoStats.dir.zip
 
 - **Using RStiudio to load these files:**
 
+<details>
 
-```r
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #6634dbff; border-radius:6px;">
+<b> 📊R Code:</b>
+
+<pre><code class="r">
+
 library(tidyverse)
 
 # Define the directory containing your files
@@ -373,7 +378,13 @@ plot_list$ReadlengthN50
 library(patchwork)
 plot_list$Numberofreads + plot_list$ReadlengthN50
 
-```
+
+</code></pre>
+</div>
+
+</details>
+
+
 
 
 As we can see the Bar plot is not the best plot to display and compare these results...
@@ -620,23 +631,22 @@ We have the results, now let's load the kraken2.species.tsv filtered results int
 
 <details>
 
-<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #34db66ff; border-radius:6px;">
-<b>💻 Console output:</b>
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #6634dbff; border-radius:6px;">
+<b> 📊R Code:</b>
 
-<pre><code>
-Vortex_SRE_1    barcode01
-FastPrep_1      barcode02
-Vortex_1        barcode03
-Vortex_2        barcode04
-FastPrep_2      barcode05
-Vortex_SRE_2    barcode06
-Vortex_3        barcode07
-Vortex_SRE_3    barcode08
-FastPrep_3      barcode09
-Vortex_3        barcode10
-FastPrep_4      barcode11
-Vortex_4        barcode12
-Vortex_SRE_4    barcode13
+<pre><code class="r">
+setwd(".") #change this to your workdirectory
+# List files
+files <- dir(pattern = "*.kraken2.species.tsv")
+# Extract sample IDs from filenames
+Names <- tibble(FileName = files) %>%
+  mutate(sampleID = str_remove_all(FileName, ".kraken2..*"))
+
+# Read in all tables
+Tables <- map(files, ~ read_tsv(.,
+                                col_names = c("Percentage", "TaxID", "SpeciesName"),
+                                col_types = cols(.default = "c"))) %>%
+  set_names(Names$sampleID)
 </code></pre>
 </div>
 
