@@ -384,9 +384,6 @@ plot_list$Numberofreads + plot_list$ReadlengthN50
 
 </details>
 
-
-
-
 As we can see the Bar plot is not the best plot to display and compare these results...
 
 <div class="callout callout-note">
@@ -394,7 +391,14 @@ As we can see the Bar plot is not the best plot to display and compare these res
   Let's use a violin plot:
 </div>
 
-```R
+
+<details>
+
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #6634dbff; border-radius:6px;">
+<b> 📊R Code:</b>
+
+<pre><code class="r">
+
 ReadLengthVP <- stats_wide %>% 
   select(Sample,`Mean read length`)%>%
   mutate(Method = case_when(
@@ -421,14 +425,23 @@ N50VP <- stats_wide %>%
 
 ReadLengthVP + N50VP
 
+</code></pre>
+</div>
 
-```
+
+</details>
 
 
 We can use some statistics like ANOVA and t-test to check if there is differences in the groups. The library ggpubr allows us to calculate these kind of statistics and visualize on the ggplot2 object:
 
 
-```r
+<details>
+
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #6634dbff; border-radius:6px;">
+<b> 📊R Code:</b>
+
+<pre><code class="r">
+
 library(ggpubr)
 
 ReadLengthVP <- ReadLengthVP +  # Global test
@@ -453,12 +466,22 @@ N50VP <- N50VP +
   ) 
 
 ReadLengthVP + N50VP
-```
+
+</code></pre>
+</div>
+
+</details>
+
 
 And modify some Color and astetics of the plot:
 
+<details>
 
-```R
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #6634dbff; border-radius:6px;">
+<b> 📊R Code:</b>
+
+<pre><code class="r">
+
 ReadLengthVP <- ReadLengthVP +
   theme_minimal() +
   scale_fill_brewer(palette =  "Dark2") +
@@ -470,17 +493,30 @@ N50VP <- N50VP +
   theme(legend.position = "none")
   
 ReadLengthVP + N50VP
-```
+
+</code></pre>
+</div>
+
+
+</details>
 
 Saving the plot:
 
-```R
+<details>
+
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #6634dbff; border-radius:6px;">
+<b> 📊R Code:</b>
+
+<pre><code class="r">
+
 MergedQCPlot <- ReadLengthVP + N50VP
 
 ggsave(MergeQCPlot,file="MergedPlot.QualityScores.pdf")
 
-```
+</code></pre>
+</div>
 
+</details>
 
 ## Taxonomy classification using Kraken2
 
