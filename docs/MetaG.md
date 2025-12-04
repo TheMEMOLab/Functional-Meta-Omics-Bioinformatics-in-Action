@@ -1225,6 +1225,7 @@ date
 
 </code></pre>
 </div>
+</details>
 
 To run we can do something like:
 
