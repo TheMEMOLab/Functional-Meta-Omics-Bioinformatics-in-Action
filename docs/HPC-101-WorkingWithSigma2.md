@@ -32,7 +32,10 @@ This will ask for your password, the one you got from Sigma2 by text. Type it.
 
 After the first attempt of login you will get something like:
 
-```
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #34db66ff; border-radius:6px;">
+<b>💻 Console output:</b>
+
+<pre><code>
 Welcome to saga.sigma2.no
 
 Documentation:      https://documentation.sigma2.no/
@@ -57,7 +60,10 @@ https://documentation.sigma2.no/files_storage/backup.html
 Last login: Wed Feb 12 14:25:51 2025 from 128.39.239.134
 (BASICS)[auve@login-3: ~]$
 
-```
+</code></pre>
+</div>
+
+
 ### SAGA main configuration 
 
 The supercomputer is named after the goddess in Norse mythology associated with wisdom. Saga is also a term for the Icelandic epic prose literature. The supercomputer, placed at NTNU in Trondheim is designed to run both sequential and parallel workloads. It was made available to users right before the start of the 2019.2 period (October 2019).
@@ -196,15 +202,26 @@ srun \
 ```
 After you will see something like this:
 
-```
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #34db66ff; border-radius:6px;">
+<b>💻 Console output:</b>
+
+<pre><code>
 srun: job 14011180 queued and waiting for resources
 srun: job 14011180 has been allocated resources
-```
+</code></pre>
+</div>
+
 Check the prompt now:
 
-```
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #34db66ff; border-radius:6px;">
+<b>💻 Console output:</b>
+
+<pre><code>
 (BASICS)[auve@c2-41: ~]$
-```
+</code></pre>
+</div>
+
+
 You can notice that now the prompt has changed and shows the node (computer) we are running on. In this case the node ```c2-41```. Also if this is not displayed we can take advantage of the many [SLURM_environment_variables](https://slurm.schedmd.com/pdfs/summary.pdf). These are dynamic values that SLURM uses to control the computers. For example, if you would like to know what is the node you are working on and the number of CPUs requested for this job you can print the values of that by using different SLURM variables and the command "echo" followed by the name of the variable:
 
 ```bash
@@ -229,10 +246,18 @@ cd $LOCALSCRATCH
 df -h .
 ```
 
-```
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #34db66ff; border-radius:6px;">
+<b>💻 Console output:</b>
+
+<pre><code>
+
 Filesystem                       Size  Used Avail Use% Mounted on
 /dev/mapper/xcatvg-localscratch   10G     0   10G   0% /localscratch
-```
+
+</code></pre>
+</div>
+
+
 ### Monitoring the job:
 
 By using the SLRUM comand ```squeue``` we can check if our interactive job is sill running:
@@ -581,7 +606,11 @@ Let's check the output of the files:
 more slurm-MySbatchScript_14027935.*
 ```
 
-```console
+<details>
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #34db66ff; border-radius:6px;">
+<b>💻 Console output:</b>
+
+<pre><code>
 ::::::::::::::
 /cluster/projects/nn9987k/auve/slurm-MySbatchScript_14027935.err
 ::::::::::::::
@@ -621,7 +650,11 @@ ID               Alloc   Usage
 14027935.batch  1024.0     0.0
 
 Job 14027935 completed at Thu Feb 20 19:36:02 CET 2025
-```
+</code></pre>
+</div>
+
+</details>
+
 
 This job also created a text (.txt) file names 10.txt, let's take a look:
 
@@ -629,9 +662,13 @@ This job also created a text (.txt) file names 10.txt, let's take a look:
 more 10.txt
 ```
 
-```console
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #34db66ff; border-radius:6px;">
+<b>💻 Console output:</b>
+
+<pre><code>
 I slept for 10 seconds
-```
+</code></pre>
+</div>
 
 ### Debunging errors during sbatch execution:
 
@@ -646,7 +683,10 @@ Let's list the results:
 ls -lrth
 ```
 
-```console
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #34db66ff; border-radius:6px;">
+<b>💻 Console output:</b>
+
+<pre><code>
 total 3.0K
 -rw-rw-r-- 1 auve nn9987k    0 Feb 20 19:35 slurm-MySbatchScript_14027935.err
 -rw-rw-r-- 1 auve auve    1017 Feb 20 19:36 slurm-MySbatchScript_14027935.out
@@ -654,7 +694,8 @@ total 3.0K
 -rw-rw-r-- 1 auve nn9987k   76 Feb 20 19:55 slurm-MySbatchScript_14027942.err
 -rw-rw-r-- 1 auve nn9987k    0 Feb 20 19:55 20.txt
 -rw-rw-r-- 1 auve auve    1017 Feb 20 19:55 slurm-MySbatchScript_14027942.out
-```
+</code></pre>
+</div
 
 We can notice the ```20.txt``` file is empty (value 0 in the 4th colum), we can check then the ```slurm-MySbatchScript_$JOBID.err``` to debug:
 
@@ -662,9 +703,13 @@ We can notice the ```20.txt``` file is empty (value 0 in the 4th colum), we can 
 more slurm-MySbatchScript_14027942.err
 ```
 
-```console
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #34db66ff; border-radius:6px;">
+<b>💻 Console output:</b>
+
+<pre><code>
 /var/tmp/slurmd/job14225128/slurm_script: line 32: ech: command not found
-```
+</code></pre>
+</div>
 
 It looks like the error is in line 32, let's take a look of the slurm script:
 
@@ -672,9 +717,13 @@ It looks like the error is in line 32, let's take a look of the slurm script:
 less +32 -N tree /cluster/projects/nn9987k/UiO_BW_2025/HPC101/SLURM/mysecondbath.SLURM.sh
 ```
 
-```console
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #34db66ff; border-radius:6px;">
+<b>💻 Console output:</b>
+
+<pre><code>
 32 sleep 20 && ech "I sleept for 20 seconds" > 20.txt
-```
+</code></pre>
+</div>
 
 Changing the error in that line will correct the code. Let's make a copy and then change that line. 
 
@@ -690,9 +739,14 @@ After changing, save the script, look for the line to be corrected and if it is 
 less +32 -N mysecondbath.SLURM.sh
 ```
 
-```console
+
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #34db66ff; border-radius:6px;">
+<b>💻 Console output:</b>
+
+<pre><code>
 32 sleep 20 && echo "I sleept for 20 seconds" > 20.txt
-```
+</code></pre>
+</div>
 
 Now the command ```echo``` is well spelled let's resubmit:
 
@@ -706,10 +760,14 @@ Now the ```20.txt``` file is written and has info on it:
 less 20.txt
 ```
 
-```console
-I sleept for 20 seconds
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #34db66ff; border-radius:6px;">
+<b>💻 Console output:</b>
+
+<pre><code>
+I sleept for 20 Seconds
 20.txt (END)
-```
+</code></pre>
+</div>
 
 ### Running BLAST as a SLRUM sbatch job.
 
