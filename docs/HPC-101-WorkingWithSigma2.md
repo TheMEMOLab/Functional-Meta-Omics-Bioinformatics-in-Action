@@ -329,7 +329,12 @@ less amylase.Bgramini.fasta
 
 ```
 
-```console
+
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #34db66ff; border-radius:6px;">
+<b>💻 Console output:</b>
+
+<pre><code>
+
 >WP_024997086.1 alpha-amylase [Bacteroides graminisolvens]
 MKRYKYWFLLLIPFLIVACSGSDDPVIEPPVVLKEGLNYSPTAPDADQELTITFKAGSTSALYNYVGDVY
 VHIGVIVDGSWKYVPAEWTENISKCKMTKTADNVWSVKLSPTVRQWFASGETSIQKLGIVIRNADGSKKG
@@ -342,7 +347,10 @@ STASAYDATRIAILKDYNSTVKTVNPSAMMILEHFCDNAEEKELANDGMYLWRNMNYAYCESAMGLPGNS
 DFSGLYDTSMPMGSLVGFMESHDEERMSFKQIAYGNYTFKTSLADRMKQLKVNTAFFLTVPGPKMIWQFG
 ELGYDYSIEENGRTGKKPVKWEYYDDASRKALYDTYAKLMTLRNANTELFDTSALFSWQVKGNTNWLNGR
 FLTLEGGGKKLVVAGNFTNQAGSYTVTFPHTGTWYNYMTGESVSVSATNQTISIPAHEFKLFVDFQSN
-```
+
+</code></pre>
+</div>
+
 
 This is the sequence of an enzyme (a-amylase) of the bacteria Bacteroides fragilis, I would like to know if an homologue of this sequence is present in the set of sequences of **Bacteroides51.faa** (Bacteroides sp. from cockroaches). The easiest way is by doing a BLAST search. But is BLAST already installed?
 
@@ -577,9 +585,7 @@ Let's take a look on a basic SLURM template:
 <div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #34db53ff; border-radius:6px;">
 <b> 🚀SBATCH script:</b>
 
-<pre><code language="bash">
-
-<b> 🚀SBATCH script:</b>
+<pre><code class="language-bash">
 
 #!/bin/bash
 
