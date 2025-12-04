@@ -1480,12 +1480,14 @@ This producess the plot:
 Plot saved as AssemblyStats.pdf
 ```
 
-![AssemblyStats](https://github.com/TheMEMOLab/Bio326-NMBU/blob/main/images/AssStats.JPG)
+![AssemblyStats](images/AssStats.JPG)
 
 **What can we say about these results?**
 
-> [!Important]
-> Remember to finish your interactive session by ```exit```
+<div class="callout callout-important">
+  <div class="callout-title">⚠️ Important</div>
+  Remember to finish your interactive session by <pre><code> exit </code><pre>
+</div>
 
 ## 4. Binning.
 
@@ -1495,11 +1497,19 @@ Presently, the assembly consists of thousands of contigs, each coming from a sin
 
 Popular binning algorithms like the ones used in Metabat2 utilize contig depth as a tell tale to link the individual contigs together that come from the same species. This is done by mapping the original reads onto the assembly and then counting the read depth of each contig. The smart thing here is that contigs coming from the same species will have similar depth. Another vital contig statistic that binners use is the GC-content. Each species has its own intrinsic GC-content, and by grouping contigs further on GC-content -in this case by counting the tetranucleotide frequency- we might get good representatives for distinct species in our sample. If our bins live up to our requirements, we can refer to them as MAGs.
 
-![Bining](https://github.com/TheMEMOLab/Bin420-Bioinformatics-for-Functional-Meta-Omics/blob/main/img/Binning.png)
+![Bining](images/Binning.pngBinning.png)
 
 
->[!Note]
-> In this course we will use 2 binning algorithms [Metabat2](https://bitbucket.org/berkeleylab/metabat/src) and  [Maxbin2](https://sourceforge.net/projects/maxbin2/)
+<div class="callout callout-note">
+  <div class="callout-title">💡 Note</div>
+  <p>
+    In this course we will use two binning algorithms:
+    <a href="https://bitbucket.org/berkeleylab/metabat/src">MetaBAT2</a>
+    and
+    <a href="https://sourceforge.net/projects/maxbin2/">MaxBin2</a>.
+  </p>
+</div>
+
 
 Both algorithms relay in extracting the sequencing depth from the assemlby using a table like this:
 
@@ -1521,10 +1531,11 @@ Where you need the length of each contig and the deepth sequenced in each experi
 
 <details>
 
-<summary>This SLURM script has all the instructions</summary>
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #95db34ff; border-radius:6px;">
+<b> 🚀SBATCH script:</b>
 
+<pre><code class="language-bash">
 
-```bash
 #!/bin/bash
 
 ##############SLURM SCRIPT###################################
@@ -1682,8 +1693,9 @@ time $RSYNC $input.Binning.dir $OUTDIR/
 echo "I've done"
 date
 
-```
 
+</code></pre>
+</div>
 </details>
 
 The script needs 4 arguments:
