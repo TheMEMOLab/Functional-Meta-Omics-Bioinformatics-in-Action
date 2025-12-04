@@ -1395,8 +1395,8 @@ sbatch /cluster/projects/nn9987k/BIO326-2025/metaG/scripts/3_Medaka.GPU.SLURM.sh
 
 ### Comparing Assemblies before and after polishing:
 
-<div class="callout callout-note">
-  <div class="callout-title">💡 Note</div>
+<div class="callout callout-important">
+  <div class="callout-title">⚠️ Important</div>
   As we will start working with files let's ask for an interactive session in SAGA:
  <pre><code>/cluster/projects/nn9987k/BIO326-2025/HPC101/SLURM/srun.prarameters.Nonode.Account.sh 4 10G normal,bigmem,hugemem 20G nn9987k 02:00:00</code></pre>
 </div>
