@@ -1069,6 +1069,13 @@ date
 </code></pre>
 </div>
 
+<div class="callout callout-note">
+  <div class="callout-title">💡 Note</div>
+  Users can submit this template
+ <pre><code>/cluster/projects/nn9987k/BIO326-2025/metaG/scripts/1_chopper.SLURM.sh</code></pre>
+</div>
+
+
 To run this we need to add the Terminal some arguments: 
     - A list
     - Iniput dir
