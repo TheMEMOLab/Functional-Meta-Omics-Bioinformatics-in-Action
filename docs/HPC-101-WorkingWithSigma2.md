@@ -861,7 +861,13 @@ I sleept for 20 Seconds
 
 Now that we know how to create a SLRUM sbatch job we can apply the same to submit the BLAST example. The following template will do the job:
 
-```bash
+<details>
+
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #95db34ff; border-radius:6px;">
+<b> 🚀SBATCH script:</b>
+
+<pre><code class="language-bash">
+
 #!/bin/bash
 
 
@@ -955,7 +961,10 @@ echo "Done Bye :-)"
 
 date
 
-```
+
+</code></pre>
+</div>
+</details>
 
 We can submit the script by:
 
