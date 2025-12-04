@@ -954,9 +954,12 @@ We should clean this for this, instead of running sbatch 12 times we can use a u
 
 
 <details>
-<summary>The following template /cluster/projects/nn9987k/BIO326-2025/metaG/scripts/1_chopper.SLURM.sh </summary>
 
-```bash
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #95db34ff; border-radius:6px;">
+<b> 🚀SBATCH script:</b>
+
+<pre><code class="language-bash">
+
 #!/bin/bash
 
 ##############SLURM SCRIPT###################################
@@ -1063,8 +1066,8 @@ time $RSYNC $input.chopper.fq.gz $OUTDIR/
 echo "I've done"
 date
 
-```
-</details>
+</code></pre>
+</div>
 
 To run this we need to add the Terminal some arguments: 
     - A list
