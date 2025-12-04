@@ -18,11 +18,7 @@ DNA extraction in BIO326 for metagenomics
 ![METAG](images/bio326metag.JPG)
 
 
-In the wetlab samples were divided as follow:
-
-![SAMPLES](images/DNAsamples.JPG)
-
-These samples were sequenced using the PromethION and it produced something like this:
+All samples were sequenced using the PromethION and [basecalled by MinKNOW using Dorado](https://nanoporetech.com/platform/technology/basecalling) software produced something like this:
 
 ```bash
 ls /cluster/projects/nn9987k/UiO_BW_2025/metaG/rawdata/fastq_pass
@@ -713,15 +709,17 @@ Tables2Abundance <- map(Tables, ~ select(., SpeciesName, Percentage) %>%
 This is still an object of class list we can reduce into a dataframe:
 
 <details>
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #6634dbff; border-radius:6px;">
+<b> 📊R Code:</b>
 
-<summary>R code</summary>
+<pre><code class="r">
 
-```r
 AbundanceTable <- reduce(Tables2Abundance, full_join, by = "SpeciesName") %>%
   rename_with(~ Names$sampleID, -SpeciesName) %>%
   mutate(across(-SpeciesName, ~ replace_na(.x, 0)))
-```
 
+</code></pre>
+</div>
 </details>
 
 Now we can use a hierarchical clustering to compare the samples. One of the most useful tool we can use is a heatmap.
@@ -729,16 +727,18 @@ Now we can use a hierarchical clustering to compare the samples. One of the most
 Let's use the library pheatmap (prety heatmaps) to do this:
 
 <details>
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #6634dbff; border-radius:6px;">
+<b> 📊R Code:</b>
 
-<summary>R code</summary>
+<pre><code class="r">
 
-```r
 library(pheatmap)
 AbundanceTable %>% 
   column_to_rownames("SpeciesName") %>%
 pheatmap()
-```
 
+</code></pre>
+</div>
 </details>
 
 This is not that prety...
@@ -746,66 +746,65 @@ This is not that prety...
 We can normalize the abundances to log2 to really apreciate the changes and create a matrix for the heatmap
 
 <details>
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #6634dbff; border-radius:6px;">
+<b> 📊R Code:</b>
 
-<summary>R code </summary>
+<pre><code class="r">
 
-```r
 MtrixForPH <- AbundanceTable %>%
   mutate(across(where(is.numeric), ~ log2(.x + 1))) %>%
   column_to_rownames("SpeciesName") %>%
   as.matrix()
-```
 
+  pheatmap(MtrixForPH)
+
+</code></pre>
+</div>
 </details>
-
-And then create the heatmap:
-
-<details>
-
-<summary>R code</summary>
-
-```r
-pheatmap(MtrixForPH)
-```
 
 </details>
 
 We want to compare the treatments so the clustering in the rows (species) is not that necesary:
 
 <details>
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #6634dbff; border-radius:6px;">
+<b> 📊R Code:</b>
 
-<summary>R code</summary>
+<pre><code class="r">
 
-```r
 pheatmap(MtrixForPH, cluster_row=F, cellwidth = 16)
-```
 
+</code></pre>
+</div>
 </details>
 
 Finally let's have a more "cool" color than the default:
 
 <details>
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #6634dbff; border-radius:6px;">
+<b> 📊R Code:</b>
 
-<summary>R code</summary>
+<pre><code class="r">
 
-```r
 library(viridis)
 Color <- rev(inferno(500))
 pheatmap(MtrixForPH, 
 cluster_row=F,
 cellwidth = 16,
 color=Color)
-```
 
+</code></pre>
+</div>
 </details>
 
 We can even add a new object and define some colors for the Methods of DNA extraction
 
 <details>
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #6634dbff; border-radius:6px;">
+<b> 📊R Code:</b>
 
-<summary>R code</summary>
+<pre><code class="r">
 
-```R
 ColAnnot <- AbundanceTable %>%
   select(-SpeciesName) %>%
   colnames() %>%
@@ -820,16 +819,19 @@ pheatmap(MtrixForPH,
          cellwidth = 16,
          color=Color,
          annotation_col = ColAnnot)
-```
+
+</code></pre>
+</div>
 </details>
 
 Now we can use the same Color palete to the Violinplots by creating a list
 
 <details>
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #6634dbff; border-radius:6px;">
+<b> 📊R Code:</b>
 
-<summary>R code</summary>
+<pre><code class="r">
 
-```R
 AnnotColor <- list(Method=AbundanceTable %>%
                      select(-SpeciesName) %>%
                      colnames() %>%
@@ -840,25 +842,29 @@ AnnotColor <- list(Method=AbundanceTable %>%
                      distinct() %>%
                      mutate(Color=brewer.pal(3,"Dark2")) %>%
                      deframe())
-```
 
+</code></pre>
+</div>
 </details>
 
 And produce our Kraken2 heatmap:
 
 <details>
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #6634dbff; border-radius:6px;">
+<b> 📊R Code:</b>
 
-<summary>R code</summary>
+<pre><code class="r">
 
-```r
 KrakenPH <- pheatmap(MtrixForPH, 
-         cluster_row=F,
-         cellwidth = 16,
-         color=Color,
-         annotation_col = ColAnnot,
-         annotation_colors = AnnotColor)
-```
+                     cluster_row=F,
+                     cellwidth = 16,
+                     color=Color,
+                     annotation_col = ColAnnot,
+                     annotation_colors = AnnotColor,
+                     border_color = F)
 
+</code></pre>
+</div>
 </details>
 
 We can then combine this plot wiht the Violin plots we previous produce:
@@ -866,48 +872,58 @@ We can then combine this plot wiht the Violin plots we previous produce:
 First we need to convert the pheatmap object into a ggplot2 object. The library ggplotify is very helpful:
 
 <details>
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #6634dbff; border-radius:6px;">
+<b> 📊R Code:</b>
 
-<summary>R code</summary>
+<pre><code class="r">
 
-```r
 library(ggplotify)
 KrakenPH <- as.ggplot(KrakenPH)
-```
 
+</code></pre>
+</div>
 </details>
 
 And then combine everything using gridExtra:
 
 <details>
-<summary>R code</summary>
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #6634dbff; border-radius:6px;">
+<b> 📊R Code:</b>
 
-```R
+<pre><code class="r">
+
 library(gridExtra)
 
 QCK2HM <- grid.arrange(arrangeGrob(ReadLengthVP,N50VP),KrakenPH,ncol=2)
-```
 
+</code></pre>
+</div>
 </details>
 
 Save into a PDF for nice report:
 
 <details>
-<summary>R code</summary>
-```R
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #6634dbff; border-radius:6px;">
+<b> 📊R Code:</b>
+
+<pre><code class="r">
+
+library(gridExtra)
+
 ggsave(QCK2HM,
        file="ViolinAndHeatmap.pdf",
        width=20,
        height=20
-)
-```
 
+</code></pre>
+</div>
 </details>
 
-![PP](https://github.com/TheMEMOLab/Bio326-NMBU/blob/main/images/ViolinAndHeatmap.png)
+![PP](images/ViolinAndHeatmap.png)
 
 # The LongReads Metagenomes: A tale of who is there and what are they doing?
 
-Last session we found the data generated in this course BIO326_2025 it is indeed usable. So now we can follow the following pipeline to recover MAGs and predict Taxonomy (who is there?) and Functional annotation (What are they doing?).
+Last session we found the data generated in the workshop it is indeed usable. So now we can follow the following pipeline to recover MAGs and predict Taxonomy (who is there?) and Functional annotation (What are they doing?).
 
 ## 1. Cleanning the reads with Chopper:
 
