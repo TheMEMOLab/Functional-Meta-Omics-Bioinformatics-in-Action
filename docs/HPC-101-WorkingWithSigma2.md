@@ -541,11 +541,11 @@ SLURM uses a [bash](https://www.gnu.org/software/bash/) (computer language) base
 <pre><code>
 
 -p --partition #partition-name       --pty #software-name/path
---mem #memory                        --gres general-resources
--n --ntasks #number of tasks         -t --time days-hours:minutes
--N --nodes #number-of-nodes          -A --account account
--c --cpus-per-task #number-of-cpus   -L --licenses license
--w --nodelist #list-of-node-names    -J --job-name jobname
+--mem #memory                        --gres #general-resources
+-n --ntasks #number of tasks         -t --time #days-hours:minutes
+-N --nodes #number-of-nodes          -A --account #account
+-c --cpus-per-task #number-of-cpus   -L --licenses #license
+-w --nodelist #list-of-node-names    -J --job-name #jobname
 
 </code></pre>
 </div>
