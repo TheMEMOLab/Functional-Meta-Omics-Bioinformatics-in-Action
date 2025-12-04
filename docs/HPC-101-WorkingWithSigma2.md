@@ -773,6 +773,7 @@ ls -lrth
 <b>💻 Console output:</b>
 
 <pre><code>
+
 total 3.0K
 -rw-rw-r-- 1 auve nn9987k    0 Feb 20 19:35 slurm-MySbatchScript_14027935.err
 -rw-rw-r-- 1 auve auve    1017 Feb 20 19:36 slurm-MySbatchScript_14027935.out
@@ -780,6 +781,7 @@ total 3.0K
 -rw-rw-r-- 1 auve nn9987k   76 Feb 20 19:55 slurm-MySbatchScript_14027942.err
 -rw-rw-r-- 1 auve nn9987k    0 Feb 20 19:55 20.txt
 -rw-rw-r-- 1 auve auve    1017 Feb 20 19:55 slurm-MySbatchScript_14027942.out
+
 </code></pre>
 </div>
 
