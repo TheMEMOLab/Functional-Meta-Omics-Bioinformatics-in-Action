@@ -582,7 +582,7 @@ Let's take a look on a basic SLURM template:
 
 <details>
 
-<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #34db53ff; border-radius:6px;">
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #95db34ff; border-radius:6px;">
 <b> 🚀SBATCH script:</b>
 
 <pre><code class="language-bash">
