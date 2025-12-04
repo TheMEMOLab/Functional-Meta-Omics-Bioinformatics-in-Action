@@ -423,11 +423,12 @@ grep D0T87_RS12665 Bacteroides51.faa
 ```
 We found the amylase!!!
 
->[<div class="callout callout-important">
+<div class="callout callout-important">
   <div class="callout-title">⚠️ Important</div>
-  Remember to change your user name.
+  Remember to copy the results to the 
+    <pre><code>/cluster/projects/nn9987k/$USER</code></pre>
 </div>]
-> Remember to copy the results to the ```/cluster/projects/nn9987k/$USER```
+
 
 ```bash
 
