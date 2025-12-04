@@ -280,14 +280,22 @@ First take a look of the data
 tree /cluster/projects/nn9987k/UiO_BW_2025/HPC101/
 ```
 
-```
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #34db66ff; border-radius:6px;">
+<b>💻 Console output:</b>
+
+<pre><code>
+
 tree /cluster/projects/nn9987k/UiO_BW_2025/HPC101/
 └── BLASTExample
     ├── amylase.Bgramini.fasta
     └── Bacteroides51.faa
 
 2 directories, 2 files
-```
+
+</code></pre>
+</div>
+
+
 <div class="callout callout-note">
   <div class="callout-title">💡 Tip</div>
   Having more than one terminal open helps to look into multiple directories faster
@@ -302,9 +310,17 @@ cd $LOCALSCRATCH/
 ls
 ```
 
-```
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #34db66ff; border-radius:6px;">
+<b>💻 Console output:</b>
+
+<pre><code>
+
 amylase.Bgramini.fasta  Bacteroides51.faa
-```
+
+</code></pre>
+</div>
+
+
 
 ```bash
 less amylase.Bgramini.fasta 
@@ -334,9 +350,16 @@ blastp
 
 ```
 
-```console
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #34db66ff; border-radius:6px;">
+<b>💻 Console output:</b>
+
+<pre><code>
+
 bash: blastp: command not found
-```
+
+</code></pre>
+</div>
+
 
 It seems blastp is not installed as a default software in SAGA.
 
@@ -394,10 +417,17 @@ We can then run a blast experiment:
 blastn
 ```
 
-```console
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #34db66ff; border-radius:6px;">
+<b>💻 Console output:</b>
+
+<pre><code>
+
 BLAST query/options error: Either a BLAST database or subject sequence(s) must be specified
 Please refer to the BLAST+ user manual.
-```
+
+</code></pre>
+</div>
+
 
 Now it is running...
 
@@ -409,7 +439,11 @@ makeblastdb -dbtype prot -in Bacteroides51.faa
 
 ```
 
-```console
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #34db66ff; border-radius:6px;">
+<b>💻 Console output:</b>
+
+<pre><code>
+
 Building a new DB, current time: 02/20/2024 17:27:49
 New DB name:   /home/work/bio326-2024-1/work.dir.of.14221763/Bacteroides51.faa
 New DB title:  Bacteroides51.faa
@@ -418,7 +452,8 @@ Keep MBits: T
 Maximum file size: 3000000000B
 Adding sequences from FASTA; added 4630 sequences in 0.091763 seconds.
 
-```
+</code></pre>
+</div>
 
 Check the results by ls:
 
@@ -428,10 +463,17 @@ ls
 
 ```
 
-```console
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #34db66ff; border-radius:6px;">
+<b>💻 Console output:</b>
+
+<pre><code>
+
 amylase.Bgramini.fasta  Bacteroides51.faa.pdb  Bacteroides51.faa.pin  Bacteroides51.faa.pot  Bacteroides51.faa.ptf
 Bacteroides51.faa       Bacteroides51.faa.phr  Bacteroides51.faa.pjs  Bacteroides51.faa.psq  Bacteroides51.faa.pto
-```
+
+</code></pre>
+</div>
+
 
 And now lets run the BLAST. As we want to search for protein in a protein database the command we need to use is BLASTP:
 
@@ -445,9 +487,17 @@ Take a look into the results:
 less amylase.Bgramini.fasta.blastp.out
 ```
 
-```console
+
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #34db66ff; border-radius:6px;">
+<b>💻 Console output:</b>
+
+<pre><code>
+
 WP_024997086.1  D0T87_RS12665   57.772  772     301     13      8       763     28      790     0.0     908
-```
+
+</code></pre>
+</div>
+
 
 It seems the amylase of *B. fragilis* has a match with the D0T87_RS12665 sequence of Bacteroides51. We can corroborate this by looking into the fasta file annotation header by doing something like this:
 
@@ -482,14 +532,22 @@ SLURM can use bash or computer scripting language (e.g. perl, python, etc) base 
 
 SLURM uses a [bash](https://www.gnu.org/software/bash/) (computer language) base script to read the instructions. The first lines, are reserved words that SLURM needs to read inorder to launch the program:
 
-```console
+
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #34db66ff; border-radius:6px;">
+<b>💻 Console output:</b>
+
+<pre><code>
+
 -p --partition <partition-name>       --pty <software-name/path>
 --mem <memory>                        --gres <general-resources>
 -n --ntasks <number of tasks>         -t --time <days-hours:minutes>
 -N --nodes <number-of-nodes>          -A --account <account>
 -c --cpus-per-task <number-of-cpus>   -L --licenses <license>
 -w --nodelist <list-of-node-names>    -J --job-name <jobname>
-```
+
+</code></pre>
+</div>
+
 
 We can indicate these options by using the ```#SBATCH``` word following by any of these flag (e.g -c 2 ; means 2 CPUs).
 
@@ -512,6 +570,7 @@ These parameters in a SLURM script must start with a #SBATCH string and will tel
 
 Let's take a look on a basic SLURM template:
 
+<details>
 
 ```bash
 #!/bin/bash
@@ -554,6 +613,8 @@ date
 
 ```
 
+</details>
+
 <div class="callout callout-note">
   <div class="callout-title">💡 Note</div>
   A copy of this script is storage in 
@@ -583,12 +644,16 @@ Users can check the status of the Job by the command ```squeue -u $USER```
 squeue -u $USER
 ```
 
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #34db66ff; border-radius:6px;">
+<b>💻 Console output:</b>
 
-```console
+<pre><code>
+
              JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
           14027935    normal MySbatch     auve  R       0:01      1 c5-45
-```
 
+</code></pre>
+</div>
 
 Now it is runing (R). 
 
