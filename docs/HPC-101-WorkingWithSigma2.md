@@ -66,7 +66,7 @@ Saga is provided by Hewlett Packard Enterprise and has a computational capacity 
 
 Let's take a look into this figure: 
 
-![Cluster](https://github.com/TheMEMOLab/Bio326-NMBU/blob/main/images/cluster.png)
+![Cluster](images/cluster.png)
 
 
 **All users have access to the $HOME, so please DO NOT USE THE $HOME FOR STORAGE OF LARGE FILES (e.g. fastq, sam, databases). The $HOME directory is intended to allocate small software executables and SLURM scripts**
@@ -173,7 +173,7 @@ pwd
 
 SAGA offers different ques to run, users must select the queue that fits the most to their needs:
 
-![queue](https://github.com/TheMEMOLab/Bio326-NMBU/blob/main/images/Capture.PNG)
+![queue](images/Capture.PNG)
 
 All details of these queues can be found [here](https://documentation.sigma2.no/jobs/choosing_job_types.html)
 
@@ -519,8 +519,14 @@ date
 
 ```
 
->[!Note]
->A copy of this script is storage in ```tree /cluster/projects/nn9987k/UiO_BW_2025/HPC101/SLURM/myfirstsbatch.SLURM.sh```
+<div class="callout callout-note">
+  <div class="callout-title">💡 Note</div>
+  A copy of this script is storage in 
+    <pre><code>
+  tree /cluster/projects/nn9987k/UiO_BW_2025/HPC101/SLURM/myfirstsbatch.SLURM.sh
+  </code></pre>
+</div>
+
 
 We can then submit the job by:
 
@@ -799,10 +805,14 @@ We can submit the script by:
 
 ```bash
 sbatch tree /cluster/projects/nn9987k/UiO_BW_2025/HPC101/SLURM/blast.SLRUM.sh
+
 ```
 
->[!Note]
-> Discuss about the results, does this work?
+<div class="callout callout-note">
+  <div class="callout-title">💡 Note</div>
+  Discuss about the results, does this work?
+</div>
+
 
 ## SFTP Guide: Transferring Files to and from the Server
 
@@ -947,4 +957,4 @@ This guide covers the basics of using SFTP to transfer files between your comput
 * Use sbatch command to submit your "final" jobs scripts.
 
 ## Welcome to the world of HPC environment:
-![Dali](https://github.com/TheMEMOLab/Bio326-NMBU/blob/main/images/DaliHPC.png)
+![Dali](images/DaliHPC.png)
