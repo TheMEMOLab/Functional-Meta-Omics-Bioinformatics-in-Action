@@ -356,8 +356,10 @@ conda activate /cluster/projects/nn9987k/.share/conda_environments/BLAST/
 (BLAST)[auve@c2-33: 14014597]$ 
 ```
 
->[!Note]
->The prompt will change every time we activate different conda environments.
+<div class="callout callout-note">
+  <div class="callout-title">💡 Note</div>
+  The prompt will change every time we activate different conda environments.
+</div>
 
 We can then run a blast experiment:
 
