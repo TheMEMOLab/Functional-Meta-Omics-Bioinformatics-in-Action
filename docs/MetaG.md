@@ -762,8 +762,6 @@ MtrixForPH <- AbundanceTable %>%
 </div>
 </details>
 
-</details>
-
 We want to compare the treatments so the clustering in the rows (species) is not that necesary:
 
 <details>
@@ -920,6 +918,15 @@ ggsave(QCK2HM,
 </details>
 
 ![PP](images/ViolinAndHeatmap.png)
+
+
+
+<div class="callout callout-note">
+  <div class="callout-title">💡 Note</div>
+  A copy of this script can be found 
+  <a href="https://github.com/TheMEMOLab/Functional-Meta-Omics-Bioinformatics-in-Action/tree/main/scr">here</a>.
+</div>
+
 
 # The LongReads Metagenomes: A tale of who is there and what are they doing?
 
