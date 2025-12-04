@@ -1719,7 +1719,10 @@ ls
 ```
 <details>
 
-```
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #34db66ff; border-radius:6px;">
+<b>💻 Console output:</b>
+
+<pre><code>
 
 MetaBiningBIO326_25Polished.assembly.sorted.bam   MetaBiningBIO326_25Polished.MaxBin.out.019.fasta                  MetaBiningBIO326_25Polished.Metabat2.23.fasta
 MetaBiningBIO326_25Polished.depth_maxbin.txt      MetaBiningBIO326_25Polished.MaxBin.out.log                        MetaBiningBIO326_25Polished.Metabat2.24.fasta
@@ -1742,7 +1745,8 @@ MetaBiningBIO326_25Polished.MaxBin.out.015.fasta  MetaBiningBIO326_25Polished.Me
 MetaBiningBIO326_25Polished.MaxBin.out.016.fasta  MetaBiningBIO326_25Polished.Metabat2.20.fasta                     MetaBiningBIO326_25Polished.Metabat2.tooShort.fasta
 MetaBiningBIO326_25Polished.MaxBin.out.017.fasta  MetaBiningBIO326_25Polished.Metabat2.21.fasta                     MetaBiningBIO326_25Polished.Metabat2.unbinned.fasta
 
-```
+</code></pre>
+</div>
 
 </details>
 
