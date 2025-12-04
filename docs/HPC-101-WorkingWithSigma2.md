@@ -781,7 +781,7 @@ total 3.0K
 -rw-rw-r-- 1 auve nn9987k    0 Feb 20 19:55 20.txt
 -rw-rw-r-- 1 auve auve    1017 Feb 20 19:55 slurm-MySbatchScript_14027942.out
 </code></pre>
-</div
+</div>
 
 We can notice the ```20.txt``` file is empty (value 0 in the 4th colum), we can check then the ```slurm-MySbatchScript_$JOBID.err``` to debug:
 
