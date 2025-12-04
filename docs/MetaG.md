@@ -1106,8 +1106,6 @@ FastPrep_2.chopper.fq.gz  FastPrep_4.chopper.fq.gz  Vortex_2.chopper.fq.gz  Vort
 
 To extend the ONT reads we will use the [Flye]() assembler with the ```--meta``` flag:
 
-<details>
-<summary>This template /cluster/projects/nn9987k/UiO_BW_2025/metaG/scripts/2_flye.SLURM.chr.sh</summary>
 
 The arguments are:
 
@@ -1115,9 +1113,13 @@ The arguments are:
     - Iniput dir
     -Output dir
 
+<details>
 
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #95db34ff; border-radius:6px;">
+<b> 🚀SBATCH script:</b>
 
-```bash
+<pre><code class="language-bash">
+
 #!/bin/bash
 
 ##############SLURM SCRIPT###################################
@@ -1221,10 +1223,8 @@ $RSYNC $input.flye.outdir $outdir/
 echo "I've done at"
 date
 
-
-```
-
-</details>
+</code></pre>
+</div>
 
 To run we can do something like:
 
@@ -1258,9 +1258,11 @@ Medaka needs two parameters to run:
 
 <details>
 
-<summary> The following SLURM script /cluster/projects/nn9987k/BIO326-2025/metaG/scripts/3_Medaka.GPU.SLURM.sh runs MEDAKA </summary>
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #95db34ff; border-radius:6px;">
+<b> 🚀SBATCH script:</b>
 
-```bash
+<pre><code class="language-bash">
+
 #!/bin/bash
 
 ##############SLURM SCRIPT###################################
@@ -1381,8 +1383,8 @@ $RSYNC $input.medaka.dir $OUTDIR/
 echo "I've done"
 date
 
-```
-
+</code></pre>
+</div>
 </details>
 
 We can submit it by:
@@ -1393,12 +1395,11 @@ sbatch /cluster/projects/nn9987k/BIO326-2025/metaG/scripts/3_Medaka.GPU.SLURM.sh
 
 ### Comparing Assemblies before and after polishing:
 
-> [!Important]
-> As we will start working with files let's ask for an interactive session in SAGA:
-
-```bash
-/cluster/projects/nn9987k/BIO326-2025/HPC101/SLURM/srun.prarameters.Nonode.Account.sh 4 10G normal,bigmem,hugemem 20G nn9987k 02:00:00
-```
+<div class="callout callout-note">
+  <div class="callout-title">💡 Note</div>
+  As we will start working with files let's ask for an interactive session in SAGA:
+ <pre><code>/cluster/projects/nn9987k/BIO326-2025/HPC101/SLURM/srun.prarameters.Nonode.Account.sh 4 10G normal,bigmem,hugemem 20G nn9987k 02:00:00</code></pre>
+</div>
 
 Now we are logged into a computing node.
 
