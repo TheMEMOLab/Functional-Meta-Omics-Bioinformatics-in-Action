@@ -263,7 +263,10 @@ tree /cluster/projects/nn9987k/UiO_BW_2025/HPC101/
 
 2 directories, 2 files
 ```
-*Tip: Having more than one terminal open helps to look into multiple directories faster*
+<div class="callout callout-note">
+  <div class="callout-title">💡 Tip</div>
+  Having more than one terminal open helps to look into multiple directories faster
+</div>
 
 As you can see there are multiple files here. Let's copy the two fasta files **.faa and .fasta** into the $LOCALSCRATCH
 
@@ -331,7 +334,11 @@ eval "$(conda shell.bash hook)"
 ```
 
 What we are doing here is being sure Conda is loaded and then export all the conda configurations to our shell.  
-**NB! Remember that the aim of this course is not to be a Linux expert so do not worry if this is a bit cryptic for you :-)** 
+
+<div class="callout callout-note">
+  <div class="callout-title">💡 Note</div>
+  Remember that the aim of this course is not to be a Linux expert so do not worry if this is a bit cryptic for you :-)
+</div>
 
 If everything was OK, you should now see the ```base``` conda environment loaded and the prompt shows this:
 
@@ -427,7 +434,7 @@ We found the amylase!!!
   <div class="callout-title">⚠️ Important</div>
   Remember to copy the results to the 
     <pre><code>/cluster/projects/nn9987k/$USER</code></pre>
-</div>]
+</div>
 
 
 ```bash
