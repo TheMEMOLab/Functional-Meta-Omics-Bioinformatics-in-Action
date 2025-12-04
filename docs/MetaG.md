@@ -9,18 +9,18 @@ prev: HPC-101-WorkingWithSigma2.html
 
 # Metagenomics from Long Reads to Circular genomes.
 
-## Case-Study: Working with the NMBU BIO326 course metagenomic samples.
+## Case-Study: Working with the NMBU course (BIO326) metagenomic samples.
 
 ## The effect of DNA extraction methods on ONT sequence quality.
 
 DNA extraction in BIO326 for metagenomics 
 
-![METAG](https://github.com/TheMEMOLab/Bio326-NMBU/blob/main/images/bio326metag.JPG)
+![METAG](images/bio326metag.JPG)
 
 
 In the wetlab samples were divided as follow:
 
-![SAMPLES](https://github.com/TheMEMOLab/Bio326-NMBU/blob/main/images/DNAsamples.JPG)
+![SAMPLES](images/DNAsamples.JPG)
 
 These samples were sequenced using the PromethION and it produced something like this:
 
@@ -28,15 +28,19 @@ These samples were sequenced using the PromethION and it produced something like
 ls /cluster/projects/nn9987k/UiO_BW_2025/metaG/rawdata/fastq_pass
 ```
 
-```console
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #34db66ff; border-radius:6px;">
+<b>💻 Console output:</b>
+
+<pre><code>
 barcode01  barcode03  barcode05  barcode07  barcode09  barcode11  barcode13  barcode15  barcode17  barcode19  barcode21  barcode23
 barcode02  barcode04  barcode06  barcode08  barcode10  barcode12  barcode14  barcode16  barcode18  barcode20  barcode22  unclassified
-```
+</code></pre>
+</div>
 
 As you see there are multiple folders with different barcodes and inside a lot of fastqfiles:
 
 ```bash
-(base) ls barcode01 |head -3
+ls barcode01 |head -3
 PAY86999_pass_barcode01_d557822e_20eb73bc_0.fastq.gz
 PAY86999_pass_barcode01_d557822e_20eb73bc_100.fastq.gz
 PAY86999_pass_barcode01_d557822e_20eb73bc_101.fastq.gz
@@ -522,7 +526,7 @@ ggsave(MergeQCPlot,file="MergedPlot.QualityScores.pdf")
 
 What is Kraken2? According to [Wood and Salzberg, GEnome Biology 2014](https://genomebiology.biomedcentral.com/articles/10.1186/gb-2014-15-3-r46): "*Kraken is an ultrafast and highly accurate program for assigning taxonomic labels to metagenomic DNA sequences. Previous programs designed for this task have been relatively slow and computationally expensive, forcing researchers to use faster abundance estimation programs, which only classify small subsets of metagenomic data. Using exact alignment of k-mers, Kraken achieves classification accuracy comparable to the fastest BLAST program.*"
 
-![K2ALG](https://github.com/TheMEMOLab/Bio326-NMBU/blob/main/images/k2algo.JPG)
+![K2ALG](images/k2algo.JPG)
 
 We can run Kraken2 something like this:
 
@@ -671,6 +675,7 @@ We have the results, now let's load the kraken2.species.tsv filtered results int
 <b> 📊R Code:</b>
 
 <pre><code class="r">
+
 setwd(".") #change this to your workdirectory
 # List files
 files <- dir(pattern = "*.kraken2.species.tsv")
@@ -683,33 +688,14 @@ Tables <- map(files, ~ read_tsv(.,
                                 col_names = c("Percentage", "TaxID", "SpeciesName"),
                                 col_types = cols(.default = "c"))) %>%
   set_names(Names$sampleID)
+
 </code></pre>
 </div>
-
-```r
-setwd(".") #change this to your workdirectory
-# List files
-files <- dir(pattern = "*.kraken2.species.tsv")
-# Extract sample IDs from filenames
-Names <- tibble(FileName = files) %>%
-  mutate(sampleID = str_remove_all(FileName, ".kraken2..*"))
-
-# Read in all tables
-Tables <- map(files, ~ read_tsv(.,
-                                col_names = c("Percentage", "TaxID", "SpeciesName"),
-                                col_types = cols(.default = "c"))) %>%
-  set_names(Names$sampleID)
-
-```
-
 </details>
-
-
 
 Transform each table: keep only Species Name and Percentage of reads
 
 <details>
-
 
 <div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #6634dbff; border-radius:6px;">
 <b>💻 Console output:</b>
@@ -722,9 +708,6 @@ Tables2Abundance <- map(Tables, ~ select(., SpeciesName, Percentage) %>%
 
 </code></pre>
 </div>
-
-
-
 </details>
 
 This is still an object of class list we can reduce into a dataframe:
