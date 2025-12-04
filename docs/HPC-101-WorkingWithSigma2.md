@@ -640,7 +640,7 @@ date
   <div class="callout-title">💡 Note</div>
   A copy of this script is storage in 
     <pre><code>
-  tree /cluster/projects/nn9987k/UiO_BW_2025/HPC101/SLURM/myfirstsbatch.SLURM.sh
+  /cluster/projects/nn9987k/UiO_BW_2025/HPC101/SLURM/myfirstsbatch.SLURM.sh
   </code></pre>
 </div>
 
@@ -655,7 +655,7 @@ cd /cluster/projects/nn9987k/$USER
 2) Use the command sbatch to launch the job:
 
 ```bash
-sbatch tree /cluster/projects/nn9987k/UiO_BW_2025/HPC101/SLURM/myfirstsbatch.SLURM.sh
+sbatch /cluster/projects/nn9987k/UiO_BW_2025/HPC101/SLURM/myfirstsbatch.SLURM.sh
 ```
 ## Monitoring the jobs by squeue
 
@@ -758,10 +758,10 @@ I slept for 10 seconds
 
 ### Debunging errors during sbatch execution:
 
-Let's run the following script ```tree /cluster/projects/nn9987k/UiO_BW_2025/HPC101/SLURM/mysecondbath.SLURM.sh ``` that launches a job to sleep for 20 seconds and then create a text file ```20.txt```
+Let's run the following script ```/cluster/projects/nn9987k/UiO_BW_2025/HPC101/SLURM/mysecondbath.SLURM.sh ``` that launches a job to sleep for 20 seconds and then create a text file ```20.txt```
 
 ```bash
-sbatch tree /cluster/projects/nn9987k/UiO_BW_2025/HPC101/SLURM/mysecondbath.SLURM.sh
+sbatch /cluster/projects/nn9987k/UiO_BW_2025/HPC101/SLURM/mysecondbath.SLURM.sh
 ```
 Let's list the results:
 
@@ -969,7 +969,7 @@ date
 We can submit the script by:
 
 ```bash
-sbatch tree /cluster/projects/nn9987k/UiO_BW_2025/HPC101/SLURM/blast.SLRUM.sh
+sbatch /cluster/projects/nn9987k/UiO_BW_2025/HPC101/SLURM/blast.SLRUM.sh
 
 ```
 
