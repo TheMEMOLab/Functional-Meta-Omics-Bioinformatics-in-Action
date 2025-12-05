@@ -2012,8 +2012,7 @@ Here we have more than 5 (n=9) genomes, but dRep says only 5. Well check the ANI
 
 - CheckM save all the clustering analysis as dendrograms and NMDS plots in the ```figures``` folder as PDF. 
 
->[!Tip]
-> We can open PDF directly in SAGA using the ```evince``` command. However, for this the X11 Display should be on in your computers. You can read more how to enable this in VS-code here [VS-CODE X Server](https://x410.dev/cookbook/enabling-ssh-x11-forwarding-in-visual-studio-code-for-remote-development/)
+
 
 ```bash
 ls  /cluster/projects/nn9987k/$USER/metaG/results/DREPLICATION/DEREP.DREP.70.5.out/figures
@@ -2026,13 +2025,18 @@ Cluster_scoring.pdf          Secondary_clustering_dendrograms.pdf  Winning_genom
 ```
 </details>
 
+<div class="callout callout-note">
+  <div class="callout-title">💡 Note</div>
+We can open PDF directly in SAGA using the ```evince``` command. However, for this the X11 Display should be on in your computers. You can read more how to enable this in VS-code here  <a href="https://x410.dev/cookbook/enabling-ssh-x11-forwarding-in-visual-studio-code-for-remote-development/">VS-CODE X Server</a>
+</div>
+
 Then using ```evince``` command to open the Primary_clustering_dendrogram.pdf file
 
 ```bash
 evince /cluster/projects/nn9987k/$USER/metaG/results/DREPLICATION/DEREP.DREP.70.5.out/figures/Primary_clustering_dendrogram.pdf
 ```
 
-![METAG](https://github.com/TheMEMOLab/Bio326-NMBU/blob/main/images/ANI.png)
+![METAG](images/ANI.png)
 
 - **How many dereplicated MAGs could we obtain if we change the parameters to 50 % Completeness 10 % Contamination?**
 
