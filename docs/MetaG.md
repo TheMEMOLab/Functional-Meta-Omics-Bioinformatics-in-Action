@@ -1498,7 +1498,7 @@ Presently, the assembly consists of thousands of contigs, each coming from a sin
 
 Popular binning algorithms like the ones used in Metabat2 utilize contig depth as a tell tale to link the individual contigs together that come from the same species. This is done by mapping the original reads onto the assembly and then counting the read depth of each contig. The smart thing here is that contigs coming from the same species will have similar depth. Another vital contig statistic that binners use is the GC-content. Each species has its own intrinsic GC-content, and by grouping contigs further on GC-content -in this case by counting the tetranucleotide frequency- we might get good representatives for distinct species in our sample. If our bins live up to our requirements, we can refer to them as MAGs.
 
-![Bining](images/Binning.pngBinning.png)
+![Bining](images/Binning.png)
 
 
 <div class="callout callout-note">
@@ -2382,7 +2382,7 @@ This script requires the following arguments:
 **Running compareM2**
 
 ```bash
-sbatch /cluster/projects/nn9987k/BIO326-2025/metaG/scripts/6b_CompareM2.SLURM.sh /
+sbatch cluster/projects/nn9987k/UiO_BW_2025/metaG/scripts/6b_CompareM2.SLURM.sh /
 /cluster/projects/nn9987k/$USER/metaG/results/DREPLICATION/DEREP_BIO326_25.DREP.70.5.out/dereplicated_genomes \
 /cluster/projects/nn9987k/$USER/metaG/results/COMPAREM2 && \
 mkdir -p /cluster/projects/nn9987k/$USER/metaG/results/COMPAREM2
@@ -2431,8 +2431,11 @@ assembly-stats  benchmarks  checkm2  gtdbtk  metadata.tsv  report_14391991.html 
 
 </details>
 
->[!Note]
-> Let's copy the report ot our local PC and take a look.
+<div class="callout callout-important">
+  <div class="callout-title">⚠️ Important</div>
+  If you were not able to produce some of the files you can copy from 
+	<pre><code>/cluster/projects/nn9987k/UiO_BW_2025/metaG/results</code></pre>
+</div>
 
 ## 7. Visualization.
 
@@ -2450,7 +2453,7 @@ The workflow, utilizes the PhyloPhlAn tool to produce a phylogenetic tree of the
 We can run this into an interactive job:
 
 ```bash
-/cluster/projects/nn9987k/BIO326-2025/HPC101/SLURM/srun.prarameters.Nonode.Account.sh 16 10G normal,bigmem,hugemem 20G nn9987k 04:00:00
+/cluster/projects/nn9987k/UiO_BW_2025/HPC101/SLURM/srun.prarameters.Nonode.Account.sh 16 10G normal,bigmem,hugemem 20G nn9987k 04:00:00
 
 ```
 
@@ -2462,8 +2465,9 @@ rsync -aLhv \
 /cluster/projects/nn9987k/$USER/metaG/results/COMPAREM2/CompareM.out.dir/samples/MetaBiningBIO326_25Polished.M*/prokka/*.faa \
 ProteinPredictions/
 ```
->[!Note]
-> If you were not able to produce some of the files you can copy from ```/cluster/projects/nn9987k/auve/metaG/```
+`
+
+
 <details>
 
 ```
@@ -2571,10 +2575,13 @@ Transfer the pdf to our local PC and explore:
 ```bash
 scp auve@saga.sigma2.no:/cluster/projects/nn9987k/auve/metaG/results/Visualization/*.pdf .
 ```
->[!Important]
-> This command must be run in your local PC not in SAGA!
 
-![PHYL](https://github.com/TheMEMOLab/Bio326-NMBU/blob/main/images/Phylo.png)
+<div class="callout callout-important">
+  <div class="callout-title">⚠️ Important</div>
+  This command must be run in your local PC not in SAGA!
+</div>
+
+![PHYL](images/Phylo.png)
 
 ### 7.2 distilR to summarize functional KEGG annotations
 
@@ -2601,11 +2608,10 @@ scp auve@saga.sigma2.no:/cluster/projects/nn9987k/auve/metaG/results/Visualizati
 Then we can load these in R following the next code:
 
 <details>
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #6634dbff; border-radius:6px;">
+<b> 📊R Code:</b>
 
-<summary>The following R code will use the gtdbtk and DRAM annotation to combine the taxonomy and functional annotation into a herachical clustering of GIFTs </summary>
-
-
-```r
+<pre><code class="r">
 
 library(tidyverse)
 library(distillR)
@@ -2804,12 +2810,12 @@ GIFTSHeatmap <- GIFTS_ElementsTotal %>%
 
 ggsave(GIFTSHeatmap,file="Gifts.DRAM.GTDBTk.pdf",width = 20,height = 20)
 
-```
-
+</code></pre>
+</div>
 </details>
 
 
-![GIFTS](https://github.com/TheMEMOLab/Bio326-NMBU/blob/main/images/GIFTS.png)
+![GIFTS](images/GIFTS.png)
 
 ### 7.3 Coverage of MAGs in different MetaG samples:
 
@@ -2823,7 +2829,7 @@ The following script runs coverM
 
 ```bash
 cd /cluster/projects/nn9987k/$USER
-sbatch /cluster/projects/nn9987k/BIO326-2025/metaG/scripts/7_CoverM.SLURM.sh /cluster/projects/nn9987k/$USER/metaG/results/ChopperBio326_25 /cluster/projects/nn9987k/$USER/metaG/results/DREPLICATION/DEREP_BIO326_25.DREP.70.5.out/dereplicated_genomes fasta /cluster/projects/nn9987k/$USER/metaG/results/COVERM && mkdir -p /cluster/projects/nn9987k/$USER/metaG/results/COVERM
+sbatch cluster/projects/nn9987k/UiO_BW_2025/metaG/scripts/7_CoverM.SLURM.sh /cluster/projects/nn9987k/$USER/metaG/results/Chopper /cluster/projects/nn9987k/$USER/metaG/results/DREPLICATION/DEREP.DREP.70.5.out/dereplicated_genomes fasta /cluster/projects/nn9987k/$USER/metaG/results/COVERM && mkdir -p /cluster/projects/nn9987k/$USER/metaG/results/COVERM
 ```
 
 This will produce a tsv table: 
@@ -2844,17 +2850,20 @@ We also need the taxonomy:
 scp auve@saga.sigma2.no:/cluster/projects/nn9987k/auve/metaG/results/Visualization/*.tsv .
 ```
 
->[!Important]
-> These commands must be run in your local PC not in SAGA!
+<div class="callout callout-important">
+  <div class="callout-title">⚠️ Important</div>
+  These commands must be run in your local PC not in SAGA!
+</div>
 
 Let's load the data in R and produce a heatmap to see differences in relative abundance:
 
 
 <details>
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #6634dbff; border-radius:6px;">
+<b> 📊R Code:</b>
 
-<summary>The following R code will summarize the differences in relative abundance of different MAGs in our MetaG samples </summary>
+<pre><code class="r">
 
-```R
 library(tidyverse)
 library(pheatmap)
 library(viridis)
@@ -3064,13 +3073,11 @@ Wilcox_tidy_results <- pairwise_wilcox %>%
   rename(Treatment1 = ...1, Treatment2 = ...2, p_adj = n) %>%
   filter(!is.na(p_adj))
 
-
-```
-
+</code></pre>
+</div>
 </details>
 
 ![COVER](images/COVERM.png)
-
 
 # This is the end of the MetaG session, now go, discuss and create a very nice report!
 
