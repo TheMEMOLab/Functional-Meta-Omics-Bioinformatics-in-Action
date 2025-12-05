@@ -1487,7 +1487,7 @@ Plot saved as AssemblyStats.pdf
 
 <div class="callout callout-important">
   <div class="callout-title">⚠️ Important</div>
-  Remember to finish your interactive session by <pre><code> exit </code><pre>
+  Remember to finish your interactive session by <pre><code> exit </code></pre>
 </div>
 
 ## 4. Binning.
