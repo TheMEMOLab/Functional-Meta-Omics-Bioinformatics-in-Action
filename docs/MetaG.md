@@ -938,17 +938,17 @@ As we have 12 fastq files:
 
 ```bash
 /cluster/projects/nn9987k/UiO_BW_2025/metaG/rawdata/FastPrep_1.fastq.gz
-/cluster/projects/nn9987k/UiO_BW_2025/metaG/rawdata//FastPrep_2.fastq.gz
-/cluster/projects/nn9987k/UiO_BW_2025/metaG/rawdata//FastPrep_3.fastq.gz
+/cluster/projects/nn9987k/UiO_BW_2025/metaG/rawdata/FastPrep_2.fastq.gz
+/cluster/projects/nn9987k/UiO_BW_2025/metaG/rawdata/FastPrep_3.fastq.gz
 /cluster/projects/nn9987k/UiO_BW_2025/metaG/rawdata/FastPrep_4.fastq.gz
-/cluster/projects/nn9987k/UiO_BW_2025/metaG/rawdata//Vortex_1.fastq.gz
-/cluster/projects/nn9987k/UiO_BW_2025/metaG/rawdata//Vortex_2.fastq.gz
-/cluster/projects/nn9987k/UiO_BW_2025/metaG/rawdata//Vortex_3.fastq.gz
-/cluster/projects/nn9987k/UiO_BW_2025/metaG/rawdata//Vortex_4.fastq.gz
-/cluster/projects/nn9987k/UiO_BW_2025/metaG/rawdata//Vortex_SRE_1.fastq.gz
-/cluster/projects/nn9987k/UiO_BW_2025/metaG/rawdata//Vortex_SRE_2.fastq.gz
+/cluster/projects/nn9987k/UiO_BW_2025/metaG/rawdata/Vortex_1.fastq.gz
+/cluster/projects/nn9987k/UiO_BW_2025/metaG/rawdata/Vortex_2.fastq.gz
+/cluster/projects/nn9987k/UiO_BW_2025/metaG/rawdata/Vortex_3.fastq.gz
+/cluster/projects/nn9987k/UiO_BW_2025/metaG/rawdata/Vortex_4.fastq.gz
+/cluster/projects/nn9987k/UiO_BW_2025/metaG/rawdata/Vortex_SRE_1.fastq.gz
+/cluster/projects/nn9987k/UiO_BW_2025/metaG/rawdata/Vortex_SRE_2.fastq.gz
 /cluster/projects/nn9987k/UiO_BW_2025/metaG/rawdata/Vortex_SRE_3.fastq.gz
-/cluster/projects/nn9987k/UiO_BW_2025/metaG/rawdata//Vortex_SRE_4.fastq.gz
+/cluster/projects/nn9987k/UiO_BW_2025/metaG/rawdata/Vortex_SRE_4.fastq.gz
 ```
 We should clean this for this, instead of running sbatch 12 times we can use a useful feature of the HPC that is parallelization by [Array jobs](https://documentation.sigma2.no/jobs/job_scripts/array_jobs.html).
 
@@ -1073,7 +1073,7 @@ date
 <div class="callout callout-note">
   <div class="callout-title">💡 Note</div>
   Users can submit this template
- <pre><code>/cluster/projects/nn9987k/BIO326-2025/metaG/scripts/1_chopper.SLURM.sh</code></pre>
+ <pre><code>/cluster/projects/nn9987k/UiO_BW_2025/metaG/scripts/1_chopper.SLURM.sh</code></pre>
 </div>
 
 
@@ -1391,7 +1391,7 @@ date
 We can submit it by:
 
 ```bash
-sbatch /cluster/projects/nn9987k/BIO326-2025/metaG/scripts/3_Medaka.GPU.SLURM.sh FlyAssemblyBIO326_25Polished /cluster/projects/nn9987k/$USER/metaG/results/ChopperBio326_25 /cluster/projects/nn9987k/$USER/metaG/results/FlyAssemblyBIO326_25/MetaAssBIO326_25.flye.outdir /cluster/projects/nn9987k/$USER/metaG/results/MedakaPolished && mkdir -p /cluster/projects/nn9987k/$USER/metaG/results/MedakaPolished
+sbatch /cluster/projects/nn9987k/UiO_BW_2025/metaG/scripts/3_Medaka.GPU.SLURM.sh FlyAssemblyPolished /cluster/projects/nn9987k/$USER/metaG/results/Chopper/cluster/projects/nn9987k/$USER/metaG/results/FlyAssembly/MetaAss.flye.outdir /cluster/projects/nn9987k/$USER/metaG/results/MedakaPolished && mkdir -p /cluster/projects/nn9987k/$USER/metaG/results/MedakaPolished
 ```
 
 ### Comparing Assemblies before and after polishing:
@@ -1407,19 +1407,19 @@ Now we are logged into a computing node.
 Display the content of the Flye assembly folder:
 
 ```bash
-ls /cluster/projects/nn9987k/$USER/metaG/results/FlyAssemblyBIO326_25/MetaAssBIO326_25.flye.outdir
+ls /cluster/projects/nn9987k/$USER/metaG/results/FlyAssembly/MetaAss.flye.outdir
 ```
 
 And the ones in MEDAKA:
 
 ```bash
 
-ls /cluster/projects/nn9987k/$USER/metaG/results/MedakaPolished/FlyAssemblyBIO326_25Polished.medaka.dir
+ls /cluster/projects/nn9987k/$USER/metaG/results/MedakaPolished/FlyAssemblyPolished.medaka.dir
 
 ```
 
 ```
-FlyAssemblyBIO326_25Polished.medaka.consensus.fasta
+FlyAssemblyPolished.medaka.consensus.fasta
 ```
 
 As we can see these are fasta files, let's corroborate these are fasta files:
@@ -1427,8 +1427,8 @@ As we can see these are fasta files, let's corroborate these are fasta files:
 1) Let's assign this into a variables to easy manipulate files:
 
 ```bash
-FLYE="/cluster/projects/nn9987k/$USER/metaG/results/FlyAssemblyBIO326_25/MetaAssBIO326_25.flye.outdir/assembly.fasta"
-MEDAKA="/cluster/projects/nn9987k/$USER/metaG/results/MedakaPolished/FlyAssemblyBIO326_25Polished.medaka.dir/FlyAssemblyBIO326_25Polished.medaka.consensus.fasta"
+FLYE="/cluster/projects/nn9987k/$USER/metaG/results/FlyAssembly/MetaAss.flye.outdir/assembly.fasta"
+MEDAKA="/cluster/projects/nn9987k/$USER/metaG/results/MedakaPolished/FlyAssemblyPolished.medaka.dir/FlyAssemblyPolished.medaka.consensus.fasta"
 ```
 
 To check we can use ```less```
@@ -1472,7 +1472,7 @@ We can plot this result table:
 ```bash
 conda activate /cluster/projects/nn9987k/.share/conda_environments/R_env/
 cd /cluster/projects/nn9987k/$USER/metaG/results/
-Rscript /cluster/projects/nn9987k/BIO326-2025/metaG/scripts/assemblyStats.r  /cluster/projects/nn9987k/$USER/metaG/results/Flye.Medaka.stats.tsv
+Rscript /cluster/projects/nn9987k/UiO_BW_2025/metaG/scripts/assemblyStats.r  /cluster/projects/nn9987k/$USER/metaG/results/Flye.Medaka.stats.tsv
 ```
 
 This producess the plot:
@@ -1708,13 +1708,13 @@ The script needs 4 arguments:
 Let's run it:
 
 ```bash
- sbatch /cluster/projects/nn9987k/BIO326-2025/metaG/scripts/4_Binning.SLURM.sh MetaBiningBIO326_25Polished /cluster/projects/nn9987k/$USER/metaG/results/ChopperBio326_25 /cluster/projects/nn9987k/$USER/metaG/results/MedakaPolished/FlyAssemblyBIO326_25Polished.medaka.dir  /cluster/projects/nn9987k/$USER/metaG/results/MetaBiningBIO326_25Polished && mkdir -p /cluster/projects/nn9987k/$USER/metaG/results/MetaBiningBIO326_25Polished
+ sbatch /cluster/projects/nn9987k/UiO_BW_2025/metaG/scripts/4_Binning.SLURM.sh MetaBiningPolished /cluster/projects/nn9987k/$USER/metaG/results/Chopper /cluster/projects/nn9987k/$USER/metaG/results/MedakaPolished/FlyAssemblyPolished.medaka.dir  /cluster/projects/nn9987k/$USER/metaG/results/MetaBiningPolished && mkdir -p /cluster/projects/nn9987k/$USER/metaG/results/MetaBiningPolished
 ```
 
 After running for 20 min you will end up with a folder like:
 
 ```bash
-cd /cluster/projects/nn9987k/auve/metaG/results/MetaBiningBIO326_25Polished/MetaBiningBIO326_25Polished.Binning.dir
+cd /cluster/projects/nn9987k/auve/metaG/results/MetaBiningPolished/MetaBiningPolished.Binning.dir
 ls
 ```
 <details>
@@ -1759,8 +1759,12 @@ MX=$(ls -1|grep MaxBin|grep -v -E "log|marker|nocl|summ|too"|wc -l)
 echo -e "Metabat2\t$MB\nMaxBin2\t$MX"
 
 ```
->[!Important]
->The number of Bins in each run (user) can change due to the binning algorithm and lack of seed setting options in MaxBin2.
+
+
+<div class="callout callout-important">
+  <div class="callout-title">⚠️ Important</div>
+The number of Bins in each run (user) can change due to the binning algorithm and lack of seed setting options in MaxBin2.
+</div>
 
 ## 5. Dereplication 
 
@@ -1770,9 +1774,10 @@ We will use then [dREP](https://drep.readthedocs.io/en/latest/index.html#) tool 
 
 <details>
 
-<summary> We can use this SLURM template: </summary>
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #95db34ff; border-radius:6px;">
+<b> 🚀SBATCH script:</b>
 
-```bash
+<pre><code class="language-bash">
 
 #!/bin/bash
 
@@ -1891,8 +1896,8 @@ echo "results are in: " $outdir/$input.DREP.$comp.$con.out
 echo "I've done at"
 date
 
-```
-
+</code></pre>
+</div>
 </details>
 
 The script requires  of parameters:
@@ -1909,34 +1914,18 @@ outdir=$6 #output directory
 To run:
 
 ```bash
-sbatch /cluster/projects/nn9987k/BIO326-2025/metaG/scripts/5_drep.SLURM.sh DEREP_BIO326_25 /cluster/projects/nn9987k/$USER/metaG/results/MetaBiningBIO326_25Polished/MetaBiningBIO326_25Polished.Binning.dir fasta 70 5 /cluster/projects/nn9987k/$USER/metaG/results/DREPLICATION && mkdir -p /cluster/projects/nn9987k/$USER/metaG/results/DREPLICATION
+sbatch /cluster/projects/nn9987k/UiO_BW_2025/metaG/scripts/5_drep.SLURM.sh DEREP /cluster/projects/nn9987k/$USER/metaG/results/MetaBiningPolished/MetaBiningPolished.Binning.dir fasta 70 5 /cluster/projects/nn9987k/$USER/metaG/results/DREPLICATION && mkdir -p /cluster/projects/nn9987k/$USER/metaG/results/DREPLICATION
 ```
 
 After running we should end with a file structure like this:
 
 ```bash
-tree -d -L 2 /cluster/projects/nn9987k/$USER/metaG/results/DREPLICATION/DEREP_BIO326_25.DREP.70.5.out
+tree -d -L 2 /cluster/projects/nn9987k/$USER/metaG/results/DREPLICATION/DEREP.DREP.70.5.out
 ```
 
 <details>
 
-```
 
-/cluster/projects/nn9987k/auve/metaG/results/DREPLICATION/DEREP_BIO326_25.DREP.70.5.out
-├── data
-│   ├── checkM
-│   ├── Clustering_files
-│   ├── fastANI_files
-│   ├── MASH_files
-│   └── prodigal
-├── data_tables
-├── dereplicated_genomes
-├── figures
-└── log
-
-11 directories
-
-```
 
 
 </details>
@@ -1952,16 +1941,30 @@ tree  /cluster/projects/nn9987k/$USER/metaG/results/DREPLICATION/DEREP_BIO326_25
 
 <details>
 
-```
-/cluster/projects/nn9987k/auve/metaG/results/DREPLICATION/DEREP_BIO326_25.DREP.70.5.out/dereplicated_genomes
-├── MetaBiningBIO326_25Polished.MaxBin.out.001.fasta
-├── MetaBiningBIO326_25Polished.Metabat2.11.fasta
-├── MetaBiningBIO326_25Polished.Metabat2.14.fasta
-├── MetaBiningBIO326_25Polished.Metabat2.27.fasta
-└── MetaBiningBIO326_25Polished.Metabat2.8.fasta
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #34db66ff; border-radius:6px;">
+<b>💻 Console output:</b>
 
-0 directories, 5 files
-```
+<pre><code>
+
+
+/cluster/projects/nn9987k/auve/metaG/results/DREPLICATION/DEREP.DREP.70.5.out
+├── data
+│   ├── checkM
+│   ├── Clustering_files
+│   ├── fastANI_files
+│   ├── MASH_files
+│   └── prodigal
+├── data_tables
+├── dereplicated_genomes
+├── figures
+└── log
+
+11 directories
+
+
+</code></pre>
+</div>
+
 
 </details>
 
@@ -1982,13 +1985,13 @@ bins  Chdb.tsv  checkm.log  lineage.ms  results.tsv  storage
 we can take a look on the results by ```less results.tsv```
 
 ```bash
-less  /cluster/projects/nn9987k/$USER/metaG/results/DREPLICATION/DEREP_BIO326_25.DREP.70.5.out/data/checkM/checkM_outdir/results.tsv
+less  /cluster/projects/nn9987k/$USER/metaG/results/DREPLICATION/DEREP.DREP.70.5.out/data/checkM/checkM_outdir/results.tsv
 ```
 
 This is a huge table, so let's just extract the fields we need the GenomeID (1), taxonomy (2), completeness (12) and contamination (13), and ask to retrieve only those that are > 70 % complete and < 5 % contaminated:
 
 ```bash
- cat /cluster/projects/nn9987k/$USER/metaG/results/DREPLICATION/DEREP_BIO326_25.DREP.70.5.out/data/checkM/checkM_outdir/results.tsv |awk -F "\t" '{if($12 > 70  && $13 < 5) print $1,$2,$12,$13}'
+ cat /cluster/projects/nn9987k/$USER/metaG/results/DREPLICATION/DEREP5.DREP.70.5.out/data/checkM/checkM_outdir/results.tsv |awk -F "\t" '{if($12 > 70  && $13 < 5) print $1,$2,$12,$13}'
 ```
 <details>
 ```
@@ -2013,7 +2016,7 @@ Here we have more than 5 (n=9) genomes, but dRep says only 5. Well check the ANI
 > We can open PDF directly in SAGA using the ```evince``` command. However, for this the X11 Display should be on in your computers. You can read more how to enable this in VS-code here [VS-CODE X Server](https://x410.dev/cookbook/enabling-ssh-x11-forwarding-in-visual-studio-code-for-remote-development/)
 
 ```bash
-ls  /cluster/projects/nn9987k/$USER/metaG/results/DREPLICATION/DEREP_BIO326_25.DREP.70.5.out/figures
+ls  /cluster/projects/nn9987k/$USER/metaG/results/DREPLICATION/DEREP.DREP.70.5.out/figures
 ```
 
 <details>
@@ -2026,7 +2029,7 @@ Cluster_scoring.pdf          Secondary_clustering_dendrograms.pdf  Winning_genom
 Then using ```evince``` command to open the Primary_clustering_dendrogram.pdf file
 
 ```bash
-evince /cluster/projects/nn9987k/$USER/metaG/results/DREPLICATION/DEREP_BIO326_25.DREP.70.5.out/figures/Primary_clustering_dendrogram.pdf
+evince /cluster/projects/nn9987k/$USER/metaG/results/DREPLICATION/DEREP.DREP.70.5.out/figures/Primary_clustering_dendrogram.pdf
 ```
 
 ![METAG](https://github.com/TheMEMOLab/Bio326-NMBU/blob/main/images/ANI.png)
@@ -2040,17 +2043,15 @@ evince /cluster/projects/nn9987k/$USER/metaG/results/DREPLICATION/DEREP_BIO326_2
 "[DRAM](https://github.com/WrightonLabCSU/DRAM) (Distilled and Refined Annotation of Metabolism) is a tool for annotating metagenomic assembled genomes and VirSorter identified viral contigs. DRAM annotates MAGs and viral contigs using KEGG (if provided by the user), UniRef90, PFAM, dbCAN, RefSeq viral, VOGDB and the MEROPS peptidase database as well as custom user databases..."
 
 
-
-<img src="https://github.com/avera1988/NMBU-Bio-326/blob/main/images/DRAM.jpg" height="400">
-
-
+<img src="images/DRAM.jpg" height="400">
 
 
 <details>
 
-<summary>This is the DRAM SLURM template:</summary>
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #95db34ff; border-radius:6px;">
+<b> 🚀SBATCH script:</b>
 
-```bash
+<pre><code class="language-bash">
 
 #!/bin/bash
 #########################################################################
@@ -2162,8 +2163,8 @@ time $RSYNC DRAM.Results.dir $OUTDIR/
 echo "DRAM results are in: " $OUTDIR/DRAM.Results.dir
 
 
-```
-
+</code></pre>
+</div>
 </details>
 
 DRAM scipt requires the following arguments:
@@ -2175,15 +2176,17 @@ DRAM scipt requires the following arguments:
 Use the following sbatch line to run:
 
 ```bash
-sbatch /cluster/projects/nn9987k/BIO326-2025/metaG/scripts/6a_DRAM.SLURM.sh\
-/cluster/projects/nn9987k/$USER/metaG/results/DREPLICATION/DEREP_BIO326_25.DREP.70.5.out/dereplicated_genomes \
+sbatch cluster/projects/nn9987k/UiO_BW_2025/metaG/scripts/6a_DRAM.SLURM.sh\
+/cluster/projects/nn9987k/$USER/metaG/results/DREPLICATION/DEREP.DREP.70.5.out/dereplicated_genomes \
 fasta \
 /cluster/projects/nn9987k/$USER/metaG/results/DRAM && \
 mkdir -p /cluster/projects/nn9987k/$USER/metaG/results/DRAM
 ```
 
->[!Warning]
-> DRAM requires a lot of time (~4-6hrs) and resources (~80-500Gb RAM) to run, so plan accordingly for submitting the job.
+<div class="callout callout-warning">
+  <div class="callout-title">🚨 Warning</div>
+ DRAM requires a lot of time (~4-6hrs) and resources (~80-500Gb RAM) to run, so plan accordingly for submitting the job.
+</div>
 
 After finish you will end up with something like:
 
@@ -2193,7 +2196,12 @@ tree /cluster/projects/nn9987k/$USER/metaG/results/DRAM
 
 <details>
 
-```
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #34db66ff; border-radius:6px;">
+<b>💻 Console output:</b>
+
+<pre><code>
+
+
 /cluster/projects/nn9987k/auve/metaG/results/DRAM
 └── DRAM.Results.dir
     ├── dram.annotation.dir
@@ -2219,7 +2227,10 @@ tree /cluster/projects/nn9987k/$USER/metaG/results/DRAM
         └── product.tsv
 
 4 directories, 18 files
-```
+
+
+</code></pre>
+</div>
 
 </details>
 
@@ -2252,9 +2263,11 @@ According to the readthedocs:
 
 <details>
 
-<summary>This is the SLURM template for CompareM2</summary>
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #95db34ff; border-radius:6px;">
+<b> 🚀SBATCH script:</b>
 
-```bash
+<pre><code class="language-bash">
+
 #!/bin/bash
 #########################################################################
 
@@ -2357,7 +2370,8 @@ time $RSYNC CompareM.out.dir $OUTDIR/
 
 echo "COMPAREM results are in: " $OUTDIR/CompareM.out.dir
 
-```
+</code></pre>
+</div>
 </details>
 
 This script requires the following arguments:
@@ -3055,9 +3069,9 @@ Wilcox_tidy_results <- pairwise_wilcox %>%
 
 </details>
 
-![COVER](https://github.com/TheMEMOLab/Bio326-NMBU/blob/main/images/COVERM.png)
+![COVER](images/COVERM.png)
 
 
 # This is the end of the MetaG session, now go, discuss and create a very nice report!
 
-![END](https://github.com/TheMEMOLab/Bin420-Bioinformatics-for-Functional-Meta-Omics/blob/main/img/metaomics.webp)
+![END](images/metaomics.webp)
