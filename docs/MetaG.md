@@ -3079,6 +3079,6 @@ Wilcox_tidy_results <- pairwise_wilcox %>%
 
 ![COVER](images/COVERM.png)
 
-# This is the end of the MetaG session, now go, discuss and create a very nice report!
+# This is the end of the MetaG session
 
 ![END](images/metaomics.webp)
