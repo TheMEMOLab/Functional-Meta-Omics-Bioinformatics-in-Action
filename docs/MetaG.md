@@ -13,7 +13,7 @@ prev: HPC-101-WorkingWithSigma2.html
 
 ## The effect of DNA extraction methods on ONT sequence quality.
 
-DNA extraction in BIO326 for metagenomics 
+DNA extraction in the BIO326 course at NMBU for metagenomics 
 
 ![METAG](images/bio326metag.JPG)
 
