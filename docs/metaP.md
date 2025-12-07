@@ -9,3 +9,7 @@ prev: MetaG.html
 
 # Functional omics (Metaproteomics)
 
+## Clasic environmental metaproteomics protocols.
+
+![METAPPRO](images/metaPPipeline.jpg)
+
