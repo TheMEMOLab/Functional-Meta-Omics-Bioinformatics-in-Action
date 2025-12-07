@@ -2,6 +2,7 @@
 layout: default
 title: Metagenomics-pipeline
 prev: HPC-101-WorkingWithSigma2.html
+next: MetaP.html
 ---
 {% include navbar.html %}
 
