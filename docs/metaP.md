@@ -50,6 +50,8 @@ The following will be displayed:
 
 ## Running FragPipe in Headless mode (idealy for HPC)
 
+### Preparing Files: 
+
 Let's run FragPipe in CLI to check and understand what is happening in each step.
 
 1) As this process will take some time, the best is to run everything in a interactive virtual terminal to keep our job alive. So let's ask for a [TMUX](https://github.com/tmux/tmux/wiki) session:
@@ -105,7 +107,7 @@ tree -d -L 2
 </code></pre>
 </div>
 
-4) FragPipe require a Manifest where the .d files are correlated with a experimental type:
+4) FragPipe require a ["Experimental Manifest"](https://fragpipe.nesvilab.org/docs/tutorial_fragpipe.html) where the .d files are correlated with a experimental type, replicates and so:
 
 
 ```bash
@@ -119,13 +121,117 @@ It looks like this:
 
 <pre><code>
 
-
 20220302_B10_Slot1-22_1_1607.d  Ctr     1
 20220302_B2_Slot1-14_1_1599.d   Ctr     2
 20220302_B4_Slot1-16_1_1601.d   Ctr     3
-
 
 </code></pre>
 </div>
 
 
+5) Activate the conda environment:
+
+```bash
+module load Anaconda3/2022.10
+eval "$(conda shell.bash hook)"
+conda activate /cluster/projects/nn9987k/.share/conda_environments/FragPipe/
+
+```
+
+### Running configuration of Database and manifests:
+
+Before running FragPipe in Headlss mode the database and workflow should be modify:
+
+Modify the database adding decoys with Philosopher:
+
+```bash
+cd $LOCALSCRATCH
+echo "Preparing workspace ..."
+
+time philosopher workspace \
+--nocheck \
+--clean
+
+
+time philosopher workspace \
+--nocheck \
+--init
+```
+
+
+Then add decoys to the database:
+
+```bash
+
+time philosopher database \
+--custom Database/MGA.v.1.0.S.salar.STX.total.prot.faa \
+--contam
+
+```
+
+We can compare the number of sequences in the DB before and after adding decoys:
+
+```bash
+DB="Database/MGA.v.1.0.S.salar.STX.total.prot.faa"
+
+# Count sequences in original DB
+seqs=$(grep -c "^>" "$DB")
+echo "Original DB: $seqs sequences"
+
+# Your modified database (.fas)
+datamod=$(ls *.fas)
+seqsfas=$(grep -c "^>" "$datamod")
+echo "Modified DB: $seqsfas sequences"
+
+# Difference (new sequences added)
+added=$(( seqsfas - seqs ))
+echo "Number of sequences added: $added"
+
+```
+
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #34db66ff; border-radius:6px;">
+<b>💻 Console output:</b>
+
+<pre><code>
+
+
+Original DB: 430759 sequences
+Modified DB: 861754 sequences
+Number of sequences added: 430995
+
+</code></pre>
+</div>
+
+
+Now we can clean the workspace:
+
+```bash
+Cleaning workspace
+
+echo "Cleaning workspace..."
+
+time philosopher workspace \
+--nocheck \
+--clean
+```
+
+### Modifying the Workflow:
+
+Fragpipe needs that the information on where and what is the database is given in a workflow. This is usually done in the GUI, but as CLI should be done manually. The following script does that:
+
+```bash
+echo "copy workflow template"
+time rsync -avhL /cluster/projects/nn9987K/shared/condaenvironments/FragPipe/git/fragpipe-23.1/workflows/LFQ-MBR.TimsTOF.workflow.edit.workflow .
+time editmanifestAndWorkflow.pl \
+TimsTOFData \
+ManifestCtr.tsv \
+LFQ-MBR.TimsTOF.workflow.edit.workflow \
+$datamod
+time fragpipe \
+--headless \
+--workflow LFQ-MBR.workflow \
+--manifest ManifestCtr.tsv.manifest.FragPipe.fp-manifest \
+--workdir $LOCALSCRATCH \
+--ram 80 \
+--threads $SLURM_CPUS_ON_NODE
+```
