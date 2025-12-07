@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Metagenomics-pipeline
+title: Metaproteomics (metaP)
 prev: MetaG.html
 ---
 {% include navbar.html %}
@@ -78,10 +78,54 @@ bash /cluster/projects/nn9987k/UiO_BW_2025/HPC101/SLURM/srun.prarameters.Nonode.
 3) Copy the TimsTOF files (.d) and the database to the $LOCALSCRATCH
 
 ```bash
-
+cd $LOCALSCRATCH
+rsync -aPhLv /cluster/projects/nn9987k/UiO_BW_2025/metaP/ToyData/TimsTOFData .
+rsync -aPhLv /cluster/projects/nn9987k/UiO_BW_2025/metaP/ToyData/Database .
 ```
 
+We should end with something like: 
+
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #34db66ff; border-radius:6px;">
+<b>💻 Console output:</b>
+
+<pre><code>
 
 
+tree -d -L 2
+.
+├── Database
+└── TimsTOFData
+    ├── 20220302_B10_Slot1-22_1_1607.d
+    ├── 20220302_B2_Slot1-14_1_1599.d
+    └── 20220302_B4_Slot1-16_1_1601.d
+
+6 directories
+
+
+</code></pre>
+</div>
+
+4) FragPipe require a Manifest where the .d files are correlated with a experimental type:
+
+
+```bash
+rsync -aPLhv /cluster/projects/nn9987k/UiO_BW_2025/metaP/ToyData/ManifestCtr.tsv .
+```
+
+It looks like this:
+
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #34db66ff; border-radius:6px;">
+<b>💻 Console output:</b>
+
+<pre><code>
+
+
+20220302_B10_Slot1-22_1_1607.d  Ctr     1
+20220302_B2_Slot1-14_1_1599.d   Ctr     2
+20220302_B4_Slot1-16_1_1601.d   Ctr     3
+
+
+</code></pre>
+</div>
 
 
