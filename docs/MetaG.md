@@ -672,7 +672,7 @@ We have the results, now let's load the kraken2.species.tsv filtered results int
 <b> 📊R Code:</b>
 
 <pre><code class="r">
-
+library(tidyverse)
 setwd(".") #change this to your workdirectory
 # List files
 files <- dir(pattern = "*.kraken2.species.tsv")
