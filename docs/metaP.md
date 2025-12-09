@@ -235,3 +235,178 @@ time fragpipe \
 --ram 80 \
 --threads $SLURM_CPUS_ON_NODE
 ```
+
+After finishing we will end up with something like this:
+
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #34db66ff; border-radius:6px;">
+💻 Console output:
+
+<pre><code>
+
+
+
+./
+├── Ctr_1
+├── Ctr_2
+├── Ctr_3
+└── MSBooster
+    └── MSBooster_plots
+        ├── IM_calibration_curves
+        ├── RT_calibration_curves
+        └── score_histograms
+
+8 directories
+
+
+</div>
+
+A lot of files and these directories.
+
+We can exit the computer now!
+
+### Calculating IDRates 
+
+To do this let's use a Cow data and not a Fish data. Ask for a computer node:
+
+```bash
+bash /cluster/projects/nn9987k/UiO_BW_2025/HPC101/SLURM/srun.prarameters.Nonode.Account.sh 4 10G normal,bigmem,hugemem 100G nn9987k 08:00:00
+```
+
+Copy the FragPipe psm.tsv results and the MSFrager results
+
+
+```bash
+rsync -aPLhv /cluster/projects/nn9987k/UiO_BW_2025/metaP/CowFragPipeResults/* .
+```
+
+Activate the conda FragPipe environment:
+
+```bash
+module load Anaconda3/2022.10
+eval "$(conda shell.bash hook)"
+conda activate /cluster/projects/nn9987k/.share/conda_environments/FragPipe/
+```
+
+The follogin script will calculate the IDRates, using each detected spectrum in the proteins. Combination of all the spectra in the samples and the peptide spectrum matches.
+
+```bash
+ForIDRates.sh ./ManifestRumen.tsv ./Fragpipe.Cow ./MSFraggerSearchesResults CowIDRates ./
+```
+
+This will produce something like:
+
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #34db66ff; border-radius:6px;">
+💻 Console output:
+
+<pre><code>
+
+⚛️  Reading mzML files...
+🧪 Reading PSM files...
+👀 First 5 IDrates...
+
+               Filename SampleType  Replicate FragPipeID  Spectrum_Count  IdentifiedPeptides    IDRate  IDRate (%)
+0   28_Slot1-01_1_917.d      rumen          1    rumen_1           28103                1391  0.049496        4.95
+1   29_Slot1-02_1_918.d      rumen          2    rumen_2           77597                   0  0.000000        0.00
+2   30_Slot1-03_1_919.d      rumen          3    rumen_3           82433                 847  0.010275        1.03
+3   32_Slot1-04_1_920.d      rumen          4    rumen_4           62778                   0  0.000000        0.00
+4  A10_Slot1-04_1_887.d      feces          1    feces_1           45660                2326  0.050942        5.09
+
+😊 I'm done! Your final data is saved in 'CowIDRates.IDrates.csv'.
+8 directories
+
+
+</div>
+
+Then copy the resulting .csv file to our folder:
+
+```bash
+rsync -aPLhv CowIDRates.IDrates.csv /cluster/projects/nn9987k/$USER/metaP/
+```
+
+<div class="callout callout-important">
+  <div class="callout-title">⚠️ Important</div>
+  Remeber to exit the computer by typing:
+<pre><code>exit</code></pre>
+</div>
+
+
+### Let's Quantify the protein experiment
+
+<details>
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #6634dbff; border-radius:6px;">
+<b> 📊R Code:</b>
+
+<pre><code class="r">
+
+library(tidyverse)
+library(MSstats)
+
+#Read the msstats
+
+input <- read_csv("msstats.csv", na = c("", "NA", "0"))
+input$ProteinName <- factor(input$ProteinName)
+input$PeptideSequence <- factor(input$PeptideSequence)
+
+#To process the data faster let's just analyze 4 replicates
+
+A <- input %>%
+  filter(Condition == "rumen", 
+         BioReplicate %in% c(1, 3, 7, 8)) 
+
+B <- input %>%
+  filter(Condition == "feces", 
+         BioReplicate %in% c(1, 2, 3, 4)) 
+
+#bind the data
+
+input <- A %>%
+  bind_rows(B)
+
+##remove contaminats
+
+
+contaminant <- read.delim("conta.id.tab.txt",col.names = "ID")
+
+inputClean <- input %>%
+  filter(!grepl(paste0(contaminant$ID,collapse = "|"),ProteinName))
+
+
+#Let's use summarize funciton from MSStats to normalize and impute the data
+summarized <- inputClean %>% 
+  dataProcess(logTrans = 2,
+              normalization = "equalizeMedians",
+              featureSubset = "all",
+              n_top_feature = 3,
+              summaryMethod = "TMP",
+              equalFeatureVar = TRUE,
+              censoredInt = "NA",
+              MBimpute = TRUE,
+  )
+
+#Extract proteins and level
+summarized_ProteinLD <- summarized$ProteinLevelData
+
+
+summarized_ProteinLD <- summarized_ProteinLD %>%
+  select(originalRUN,GROUP,SUBJECT) %>%
+  arrange(GROUP) %>%
+  separate(originalRUN,into = "MetaPId",sep = "_",remove = F) %>%
+  unite("MetaPGroup",GROUP:SUBJECT,sep = "_",remove = F) 
+
+#Create a long data frame with this info
+sample_quant_long <- quantification(summarized,
+                                    type = "Sample",
+                                    format = "long")
+
+#A wide one for easy visualization
+
+sample_quant_wide <- sample_quant_long %>%
+  select(Protein,LogIntensity,Group_Subject) %>%
+  pivot_wider(names_from = Group_Subject,values_from = LogIntensity)
+
+
+
+</code></pre>
+</div>
+</details>
+
