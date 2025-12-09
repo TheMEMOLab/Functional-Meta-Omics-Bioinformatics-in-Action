@@ -1428,8 +1428,8 @@ As we can see these are fasta files, let's corroborate these are fasta files:
 1) Let's assign this into a variables to easy manipulate files:
 
 ```bash
-FLYE="/cluster/projects/nn9987k/$USER/metaG/results/FlyAssembly/MetaAss.flye.outdir/assembly.fasta"
-MEDAKA="/cluster/projects/nn9987k/$USER/metaG/results/MedakaPolished/FlyAssemblyPolished.medaka.dir/FlyAssemblyPolished.medaka.consensus.fasta"
+FLYE="/cluster/projects/nn9987k/UiO_BW_2025/metaG/results/FlyAssemblyBIO326_25/MetaAssBIO326_25.flye.outdir/assembly.fasta"
+MEDAKA="/cluster/projects/nn9987k/UiO_BW_2025/metaG/results/MedakaPolished/FlyAssemblyBIO326_25Polished.medaka.dir/FlyAssemblyBIO326_25Polished.medaka.consensus.fasta"
 ```
 
 To check we can use ```less```
