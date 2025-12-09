@@ -330,7 +330,76 @@ rsync -aPLhv CowIDRates.IDrates.csv /cluster/projects/nn9987k/$USER/metaP/
 </div>
 
 
-### Let's Quantify the protein experiment
+
+### Let's plot the IDRates and extract the LFQ values 
+
+Download the metaP.zip from arken:
+
+```
+wget https://arken.nmbu.no/~auve/obw_2025/metaP.zip .
+```
+
+Plot the IDRates:
+
+<details>
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #6634dbff; border-radius:6px;">
+<b> 📊R Code:</b>
+
+<pre><code class="r">
+
+library(tidyverse)
+library(ggplot2)
+library(RColorBrewer)
+
+
+
+setwd("/.")
+
+Metadata <- read_csv("CowMetadata.csv")
+
+Metadata <- Metadata %>%
+  mutate(MetaPId=str_remove_all(MetaPId,"-"))
+
+
+IDRATE <- read_csv("CowIDRates.IDrates.csv")%>%
+  separate(Filename,"MetaPId","_",remove = F)
+
+
+IDRATE <- IDRATE %>%
+  select(-SampleType)
+
+IDRATE <- IDRATE %>%
+  left_join(Metadata,by="MetaPId")
+
+IDRATE <- IDRATE %>%
+  mutate(Origin=sample_type)
+
+
+
+IDRATE <- IDRATE %>%
+  select(-FragPipeID) %>%
+  unite(Experiment_ID,c(Origin,Replicate),sep ="_",remove = F)
+
+data_summary <- function(x) {
+  m <- mean(x)
+  ymin <- m-(sd(x)/sqrt(length(x)))
+  ymax <- m+(sd(x)/sqrt(length(x)))
+  return(c(y=m,ymin=ymin,ymax=ymax))
+}
+
+IDRatePlot <- ggplot(IDRATE,aes(x=Origin, y=`IDRate (%)`,fill=Origin)) +
+  geom_violin() +
+  stat_summary(fun.data=data_summary) +
+  scale_fill_brewer(palette="Dark2") +
+  theme_classic()
+
+IDRatePlot
+
+</code></pre>
+</div>
+</details>
+
+### Obtain LFQ and log2 Normalized values
 
 <details>
 <div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #6634dbff; border-radius:6px;">
@@ -347,20 +416,6 @@ input <- read_csv("msstats.csv", na = c("", "NA", "0"))
 input$ProteinName <- factor(input$ProteinName)
 input$PeptideSequence <- factor(input$PeptideSequence)
 
-#To process the data faster let's just analyze 4 replicates
-
-A <- input %>%
-  filter(Condition == "rumen", 
-         BioReplicate %in% c(1, 3, 7, 8)) 
-
-B <- input %>%
-  filter(Condition == "feces", 
-         BioReplicate %in% c(1, 2, 3, 4)) 
-
-#bind the data
-
-input <- A %>%
-  bind_rows(B)
 
 ##remove contaminats
 
@@ -404,7 +459,47 @@ sample_quant_wide <- sample_quant_long %>%
   select(Protein,LogIntensity,Group_Subject) %>%
   pivot_wider(names_from = Group_Subject,values_from = LogIntensity)
 
+#Plot a PCA to check if samples are clustering
 
+#Transfor the data for PCA
+df2 <- sample_quant_long %>%
+  mutate(Group = if_else(str_detect(Group_Subject, "feces"), "feces", "rumen"))
+
+# 2) Pivot to wide format for PCA
+mat <- df2 %>% 
+  select(Protein, Group_Subject, LogIntensity) %>% 
+  pivot_wider(names_from = Group_Subject, values_from = LogIntensity)
+
+# 3) Create numeric matrix (samples as columns)
+mat_num <- mat %>% 
+  select(-Protein) %>% 
+  as.matrix()
+
+# 4) Replace NAs with column means
+mat_num[is.na(mat_num)] <- apply(mat_num, 2, function(x) 
+  replace(x, is.na(x), mean(x, na.rm = TRUE))
+)
+
+# 5) PCA (transpose = samples as rows)
+pca <- prcomp(t(mat_num), scale = TRUE)
+
+# 6) PCA scores + group annotation
+scores <- as.data.frame(pca$x) %>%
+  mutate(Group_Subject = colnames(mat_num)) %>%
+  mutate(Group = if_else(str_detect(Group_Subject, "feces"), "feces", "rumen"))
+
+# 7) PCA plot (ONLY rumen vs feces)
+p <- ggplot(scores, aes(PC1, PC2, color = Group)) +
+  geom_point(size = 4, alpha = 0.9) +
+  theme_minimal(base_size = 14) +
+  scale_color_brewer(palette = "Set1") +
+  labs(
+    title = "PCA of smORF Log Intensity (Rumen vs Feces)",
+    x = paste0("PC1 (", round(summary(pca)$importance[2,1] * 100, 1), "%)"),
+    y = paste0("PC2 (", round(summary(pca)$importance[2,2] * 100, 1), "%)"),
+    color = "Group"
+  )
+p
 
 </code></pre>
 </div>
