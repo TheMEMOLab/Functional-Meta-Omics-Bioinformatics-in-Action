@@ -257,7 +257,7 @@ After finishing we will end up with something like this:
 
 8 directories
 
-<pre></code>
+</code></pre>
 </div>
 
 A lot of files and these directories.
