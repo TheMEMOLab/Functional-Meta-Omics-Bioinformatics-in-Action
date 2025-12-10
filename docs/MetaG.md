@@ -2832,9 +2832,115 @@ CoverM calculates coverage of genomes/MAGs coverm genome or individual contigs c
 
 The following script runs coverM
 
+<details>
+
+<div style="background:#f3f3f3; padding:12px 16px; border-left:6px solid #95db34ff; border-radius:6px;">
+ 🚀SBATCH script:
+
+<pre><code class="language-bash">
+
+#!/bin/bash
+
+###################################
+## Job name:
+#SBATCH --job-name=CoverM
+#
+## Wall time limit:
+#SBATCH --time=10:00:00
+###Account
+#SBATCH --account=nn9987k
+## Other parameters:
+#SBATCH --cpus-per-task 16
+#SBATCH --mem=20G
+#SBATCH --gres=localscratch:150G
+#SBATCH --partition=normal,bigmem,hugemem
+#SBATCH --out slurm-%x_%j.out
+#######################################
+
+###Variables###
+reads=$1 #read dir
+drep=$2 #dereplicated genomes
+ext=$3 #extesnsion fasta files
+outdir=$4 # out dir
+RSYNC='rsync -aLhv --no-perms --no-owner --no-group'
+##Activate conda environments ## Arturo
+
+module --quiet purge  # Reset the modules to the system default
+module load Anaconda3/2022.10
+
+
+##Activate conda environments
+
+export PS1=\$
+source ${EBROOTANACONDA3}/etc/profile.d/conda.sh
+conda deactivate &>/dev/null
+conda activate /cluster/projects/nn9987k/.share/conda_environments/COVERM
+echo "I am workung with this" $CONDA_PREFIX
+
+####Do some work:########
+
+echo "Hello" $USER
+echo "my submit directory is:"
+echo $SLURM_SUBMIT_DIR
+echo "this is the job:"
+echo $SLURM_JOB_ID
+echo "I am running on:"
+echo $SLURM_NODELIST
+echo "I am running with:"
+echo $SLURM_CPUS_ON_NODE "cpus"
+echo "I am working with this enviroment loaded"
+echo $CONDA_PREFIX
+echo "Today is:"
+date
+
+## Copying data to local node for faster computation
+
+cd $LOCALSCRATCH
+
+workdir=$(pwd)
+echo "My working directory is" $workdir
+echo "copying MAGs files ..."
+time $RSYNC $drep/*.$ext .
+mkdir MAGs
+mv *$ext MAGs 
+
+echo "Copy Reads..."
+time $RSYNC $reads/*.gz .
+
+
+
+#####COVERM
+
+echo "Start checkm2"
+
+date +%b\ %d\ %T
+
+time TMPDIR=. coverm genome \
+--single *.gz \
+-x $ext \
+-d MAGs \
+-p minimap2-ont \
+--output-file Abundance.coverM.tsv \
+-m relative_abundance covered_fraction \
+-t $SLURM_CPUS_ON_NODE
+
+ls
+
+time $RSYNC Abundance.coverM.tsv $outdir/
+
+echo "results are in: " $outdir/Abundance.coverM.tsv
+
+###
+echo "I've done at"
+date
+
+</code></pre>
+</div>
+</details>
+
 ```bash
 cd /cluster/projects/nn9987k/$USER
-sbatch cluster/projects/nn9987k/UiO_BW_2025/metaG/scripts/7_CoverM.SLURM.sh /cluster/projects/nn9987k/$USER/metaG/results/Chopper /cluster/projects/nn9987k/$USER/metaG/results/DREPLICATION/DEREP.DREP.70.5.out/dereplicated_genomes fasta /cluster/projects/nn9987k/$USER/metaG/results/COVERM && mkdir -p /cluster/projects/nn9987k/$USER/metaG/results/COVERM
+sbatch /cluster/projects/nn9987k/UiO_BW_2025/metaG/scripts/7_CoverM.SLURM.sh /cluster/projects/nn9987k/$USER/metaG/results/Chopper /cluster/projects/nn9987k/$USER/metaG/results/DREPLICATION/DEREP.DREP.70.5.out/dereplicated_genomes fasta /cluster/projects/nn9987k/$USER/metaG/results/COVERM && mkdir -p /cluster/projects/nn9987k/$USER/metaG/results/COVERM
 ```
 
 This will produce a tsv table: 
