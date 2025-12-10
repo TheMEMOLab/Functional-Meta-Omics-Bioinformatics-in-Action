@@ -276,6 +276,7 @@ Copy the FragPipe psm.tsv results and the MSFrager results
 
 
 ```bash
+cd $LOCALSCRATCH
 rsync -aPLhv /cluster/projects/nn9987k/UiO_BW_2025/metaP/CowFragPipeResults/* .
 ```
 
