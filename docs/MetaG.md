@@ -2530,8 +2530,8 @@ We can use the the [MetaGVisualToolBox/GenoTaxoTree.R](https://github.com/TheMEM
 Let's gather the needed data from COMPAREM2
 
 ```bash
-rsync -aLhv /cluster/projects/nn9987k/$USER/metaG/results/COMPAREM2/CompareM.out.dir/checkm2/quality_report.tsv .
-rsync -aLhv /cluster/projects/nn9987k/$USER/metaG/results/COMPAREM2/CompareM.out.dir/gtdbtk/gtdbtk.bac120.summary.tsv .
+rsync -aLhv /cluster/projects/nn9987k/UiO_BW_2025/metaG/results/COMPAREM2/CompareM.out.dir/checkm2/quality_report.tsv .
+rsync -aLhv /cluster/projects/nn9987k/UiO_BW_2025/metaG/results/COMPAREM2/CompareM.out.dir/gtdbtk/gtdbtk.bac120.summary.tsv .
 ```
 
 The GenoTaxoTree.R script needs:
