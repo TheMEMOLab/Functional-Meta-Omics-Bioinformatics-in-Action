@@ -2467,7 +2467,7 @@ Then PhyloPhlAn needs the amminoacid translated sequences from our MAGs. Let's u
 ```bash
 mkdir -p $LOCALSCRATCH/ProteinPredictions && cd $LOCALSCRATCH
 rsync -aLhv \
-/cluster/projects/nn9987k/$USER/metaG/results/COMPAREM2/CompareM.out.dir/samples/MetaBiningBIO326_25Polished.M*/prokka/*.faa \
+/cluster/projects/nn9987k/UiO_BW_2025/metaG/results/COMPAREM2/CompareM.out.dir/samples/MetaBiningBIO326_25Polished.M*/prokka/*.faa \
 ProteinPredictions/
 ```
 `
