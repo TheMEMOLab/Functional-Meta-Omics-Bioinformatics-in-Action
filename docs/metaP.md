@@ -221,7 +221,7 @@ Fragpipe needs that the information on where and what is the database is given i
 
 ```bash
 echo "copy workflow template"
-time rsync -avhL /cluster/projects/nn9987K/shared/condaenvironments/FragPipe/git/fragpipe-23.1/workflows/LFQ-MBR.TimsTOF.workflow.edit.workflow .
+time rsync -avhL /cluster/projects/nn9987K/.share/conda_environments/FragPipe/git/fragpipe-23.1/workflows/LFQ-MBR.TimsTOF.workflow.edit.workflow .
 time editmanifestAndWorkflow.pl \
 TimsTOFData \
 ManifestCtr.tsv \
